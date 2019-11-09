@@ -55,7 +55,7 @@ MAN_DIR ?=	man
 MAN3_DIR ?=	$(MAN_DIR)/man3
 MANN_DIR ?=	$(MAN_DIR)/mann
 
-all: libhax.la libhaxunix.la haxTest
+all: libhax.la libhaxunix.la haxsh
 
 GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 	haxCmdAH.o haxCmdIL.o haxCmdMZ.o haxExpr.o haxGet.o \
@@ -89,12 +89,12 @@ libhaxunix.la: $(UNIX_OBJS)
 	${LIBTOOL} --mode=link --tag=CC ${CC} -avoid-version ${LDFLAGS} \
 		-o $@ ${UNIX_LOBJS} -rpath ${PREFIX}/lib
 
-haxTest: libhax.la libhaxunix.la
-	$(CC) $(CFLAGS) -o haxTest.o -c haxTest.c
+haxsh: libhax.la libhaxunix.la
+	$(CC) $(CFLAGS) -o haxsh.o -c haxsh.c
 	${LIBTOOL} --mode=link --tag=CC ${CC} ${LDFLAGS} \
-		-o $@ haxTest.o libhax.la libhaxunix.la
+		-o $@ haxsh.o libhax.la libhaxunix.la
 
-install: libhax.la libhaxunix.la haxTest
+install: libhax.la libhaxunix.la haxsh
 	install -d $(DESTDIR)$(PREFIX)/$(BIN_DIR)
 	install -d $(DESTDIR)$(PREFIX)/$(LIB_DIR)
 	install -d $(DESTDIR)$(PREFIX)/$(HAX_LIBRARY)
@@ -103,7 +103,7 @@ install: libhax.la libhaxunix.la haxTest
 	install -d $(DESTDIR)$(PREFIX)/$(MANN_DIR)
 
 	${LIBTOOL} --mode=install install \
-		-c haxTest $(DESTDIR)$(PREFIX)/$(BIN_DIR)
+		-c haxsh $(DESTDIR)$(PREFIX)/$(BIN_DIR)
 
 	cd library; for i in *.tcl; do \
 		install $$i $(DESTDIR)$(PREFIX)/$(HAX_LIBRARY); \
@@ -212,12 +212,12 @@ install: libhax.la libhaxunix.la haxTest
 		install Hax_library.n $(DESTDIR)$(PREFIX)/$(MANN_DIR); \
 		rm -f Hax_library.n
 
-test: haxTest
-	( echo cd tests ; echo source all ) | ${LIBTOOL} --mode=execute ./haxTest
+test: haxsh
+	( echo cd tests ; echo source all ) | ${LIBTOOL} --mode=execute ./haxsh
 
 clean:
 	rm -f $(OBJS) $(UNIX_OBJS) libhax.a libhaxunix.a \
-		haxTest.o haxTest \
+		haxsh.o haxsh \
 		$(LOBJS) $(UNIX_LOBJS) libhax.la libhaxunix.la
 	rm -rf .libs
 
