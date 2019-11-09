@@ -44,10 +44,9 @@ CFLAGS =	-O -I. -DHAX_LIBRARY=\"${HAX_LIBRARY}\"
 GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 	haxCmdAH.o haxCmdIL.o haxCmdMZ.o haxExpr.o haxGet.o \
 	haxHash.o haxHistory.o haxParse.o haxProc.o haxUtil.o \
-	haxVar.o haxCkalloc.o
+	haxVar.o haxPanic.o haxCkalloc.o
 
-UNIX_OBJS = haxPanic.o haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o \
-	haxUnixUtil.o 
+UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
 
 COMPAT_OBJS =
 
