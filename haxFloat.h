@@ -1,5 +1,5 @@
 /*
- * haxFloats.h --
+ * haxFloat.h --
  *
  *	This header file maps floating point operations into native
  *	toolchain support for floats.
@@ -15,8 +15,8 @@
  *
  */
 
-#ifndef _HAXFLOATS
-#define _HAXFLOATS
+#ifndef _HAXFLOAT
+#define _HAXFLOAT
 
 #if !defined(_HAX) || !defined(_HAXINT)
 #error This header shall not be included directly
@@ -35,11 +35,11 @@ typedef double hax_double;
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-static inline hax_float hax_wide_to_float( hax_wide w )
+static inline hax_float hax_longlong_to_float( long long int w )
 {
     return (hax_float)w;
 }
-static inline hax_double hax_wide_to_double( hax_wide w )
+static inline hax_double hax_longlong_to_double( long long int w )
 {
     return (hax_double)w;
 }
@@ -47,9 +47,9 @@ static inline hax_double hax_wide_to_double( hax_wide w )
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-static inline hax_wide hax_float_to_wide( hax_float f )
+static inline long long int hax_float_to_longlong( hax_float f )
 {
-    return (hax_wide)f;
+    return (long long int)f;
 }
 static inline hax_double hax_float_to_double( hax_float f )
 {
@@ -127,9 +127,9 @@ int hax_stof( hax_float, const char *, char *, unsigned int );
 /*----------------------------------------------------------------------------
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-static inline hax_wide hax_double_to_wide( hax_double f )
+static inline long long int hax_double_to_longlong( hax_double f )
 {
-    return (hax_wide)f;
+    return (long long int)f;
 }
 static inline hax_float hax_double_to_float( hax_double f )
 {
@@ -215,8 +215,4 @@ int hax_stod( hax_double, const char *, char *, unsigned int );
 #define HAX_DOUBLE_THOUSAND 1e3
 #define HAX_DOUBLE_MILLION 1e6
 
-#else
-#include <jim-softfloat.h>
-#endif
-
-#endif
+#endif /* _HAXFLOAT */
