@@ -46,6 +46,28 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 
 /*----------------------------------------------------------------------------
+| Compile Time Assert
+*----------------------------------------------------------------------------*/
+
+#ifdef __COUNTER__
+#define HAX_CTASSERT(x)         HAX_CTASSERT0(x, __jimctassert, __COUNTER__)
+#else
+#define HAX_CTASSERT(x)         HAX_CTASSERT99(x, __INCLUDE_LEVEL__, __LINE__)
+#define HAX_CTASSERT99(x, a, b) HAX_CTASSERT0(x, __hax_ctassert ## a, _ ## b)
+#endif
+#define HAX_CTASSERT0(x, y, z)  HAX_CTASSERT1(x, y, z)
+#define HAX_CTASSERT1(x, y, z)  				\
+    typedef struct { 						\
+        unsigned int y ## z : /*CONSTCOND*/(x) ? 1 : -1; 	\
+    } y ## z ## _hax_struct
+
+/*----------------------------------------------------------------------------
+| SoftFloat implementation assumptions
+*----------------------------------------------------------------------------*/
+
+typedef long long int hax_wide;
+
+/*----------------------------------------------------------------------------
 | SoftFloat implementation assumptions
 *----------------------------------------------------------------------------*/
 
