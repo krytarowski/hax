@@ -9,7 +9,10 @@
 # CFLAGS.  Lastly, you'll have to provide your own replacement for the
 # "Hax_Panic" procedure (see haxPanic.c for what the current one does).
 
-# 2. If you want to put Hax-related information in non-standard places,
+# 2. To compile Hax with Software Floats, add the switch
+# "-DHAX_SOFTFLOAT" to CFLAGS.
+
+# 3. If you want to put Hax-related information in non-standard places,
 # change the following definitions below to reflect where you want
 # things (all must be specified as full rooted path names):
 #
