@@ -48,7 +48,7 @@
 AR	= ar
 RANLIB	= ranlib
 CC	= cc
-CFLAGS	=
+CFLAGS	= -DHAX_SOFTFLOAT
 LDFLAGS	=
 
 PREFIX ?=	/usr/local
@@ -69,9 +69,11 @@ GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 
 UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
 
+SOFTFP_OBJS = 
+
 COMPAT_OBJS =
 
-OBJS = $(GENERIC_OBJS) $(UNIX_OBJS) $(COMPAT_OBJS)
+OBJS = $(GENERIC_OBJS) $(UNIX_OBJS) $(SOFTFP_OBJS) $(COMPAT_OBJS)
 
 libhax.a: $(OBJS)
 	$(AR) cr $@ $(OBJS)
