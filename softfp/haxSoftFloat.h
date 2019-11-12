@@ -65,13 +65,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 | SoftFloat implementation assumptions
 *----------------------------------------------------------------------------*/
 
-typedef long long int hax_wide;
-
-/*----------------------------------------------------------------------------
-| SoftFloat implementation assumptions
-*----------------------------------------------------------------------------*/
-
-HAX_CTASSERT(sizeof(hax_wide) == 8);
+HAX_CTASSERT(sizeof(long long int) == 8);
 
 /*----------------------------------------------------------------------------
 | Hax soft float/double
@@ -86,13 +80,13 @@ HAX_CTASSERT(sizeof(hax_double) == 8);
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-hax_float hax_wide_to_float( hax_wide );
-hax_double hax_wide_to_double( hax_wide );
+hax_float hax_longlong_to_float( long long int );
+hax_double hax_longlong_to_double( long long int );
 
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-hax_wide hax_float_to_wide( hax_float );
+long long int hax_float_to_longlong( hax_float );
 hax_double hax_float_to_double( hax_float );
 
 hax_float hax_float_add( hax_float, hax_float );
@@ -137,7 +131,7 @@ int hax_stof( hax_float, const char *, char *, unsigned int );
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
 
-hax_wide hax_double_to_wide( hax_double );
+long long int hax_double_to_longlong( hax_double );
 hax_float hax_double_to_float( hax_double );
 
 hax_double hax_double_add( hax_double, hax_double );
@@ -182,11 +176,11 @@ int hax_stod( hax_double, const char *, char *, unsigned int );
 | Hax soft float/double commonly used constants
 *----------------------------------------------------------------------------*/
 
-#define hax_DOUBLE_ZERO hax_wide_to_double(0)
-#define hax_DOUBLE_ONE hax_wide_to_double(1)
-#define hax_DOUBLE_MINUSONE hax_wide_to_double(-1)
-#define hax_DOUBLE_HALF hax_double_div(hax_wide_to_double(1), hax_wide_to_double(2))
-#define hax_DOUBLE_THOUSAND hax_wide_to_double(1000)
-#define hax_DOUBLE_MILLION hax_wide_to_double(1000000)
+#define hax_DOUBLE_ZERO hax_longlong_to_double(0)
+#define hax_DOUBLE_ONE hax_longlong_to_double(1)
+#define hax_DOUBLE_MINUSONE hax_longlong_to_double(-1)
+#define hax_DOUBLE_HALF hax_double_div(hax_longlong_to_double(1), hax_longlong_to_double(2))
+#define hax_DOUBLE_THOUSAND hax_longlong_to_double(1000)
+#define hax_DOUBLE_MILLION hax_longlong_to_double(1000000)
 
 #endif
