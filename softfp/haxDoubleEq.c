@@ -35,9 +35,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =============================================================================*/
 
 #include "haxSoftFloat.h"
-#include "jim-softfloat-internals.h"
+#include "haxSoftFloatInternals.h"
 
-#include "jim-softfloat-specialize.h"
+#include "haxSoftFloatSpecialize.h"
 
 int haxDoubleEq( Double a, Double b )
 {
