@@ -167,7 +167,7 @@ Hax_float32_t
 *----------------------------------------------------------------------------*/
 #define Hax_signF64UI( a ) ((Hax_bool) ((Hax_uint64_t) (a)>>63))
 #define Hax_expF64UI( a ) ((Hax_int_fast16_t) ((a)>>52) & 0x7FF)
-#define Hax_fracF64UI( a ) ((a) & UINT64_C( 0x000FFFFFFFFFFFFF ))
+#define Hax_fracF64UI( a ) ((a) & HAX_UINT64_C( 0x000FFFFFFFFFFFFF ))
 #define Hax_packToF64UI( sign, exp, sig ) ((Hax_uint64_t) (((Hax_uint_fast64_t) (sign)<<63) + ((Hax_uint_fast64_t) (exp)<<52) + (sig)))
 
 #define Hax_isNaNF64UI( a ) (((~(a) & HAX_UINT64_C( 0x7FF0000000000000 )) == 0) && ((a) & HAX_UINT64_C( 0x000FFFFFFFFFFFFF )))
@@ -218,7 +218,7 @@ Hax_extFloat80_t
 *----------------------------------------------------------------------------*/
 #define Hax_signF128UI64( a64 ) ((Hax_bool) ((Hax_uint64_t) (a64)>>63))
 #define Hax_expF128UI64( a64 ) ((Hax_int_fast32_t) ((a64)>>48) & 0x7FFF)
-#define Hax_fracF128UI64( a64 ) ((a64) & UINT64_C( 0x0000FFFFFFFFFFFF ))
+#define Hax_fracF128UI64( a64 ) ((a64) & HAX_UINT64_C( 0x0000FFFFFFFFFFFF ))
 #define Hax_packToF128UI64( sign, exp, sig64 ) (((Hax_uint_fast64_t) (sign)<<63) + ((Hax_uint_fast64_t) (exp)<<48) + (sig64))
 
 #define Hax_isNaNF128UI( a64, a0 ) (((~(a64) & HAX_UINT64_C( 0x7FFF000000000000 )) == 0) && (a0 || ((a64) & HAX_UINT64_C( 0x0000FFFFFFFFFFFF ))))
