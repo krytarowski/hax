@@ -34,29 +34,29 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"   
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-jim_double
- jim_softfloat_roundPackToF64( jim_bool sign, jim_int_fast16_t exp, jim_uint_fast64_t sig )
+Double
+Hax_softfloat_roundPackToF64(Hax_bool sign, Hax_int_fast16_t exp, Hax_uint_fast64_t sig)
 {
-    jim_uint_fast8_t roundingMode;
-    jim_bool roundNearEven;
-    jim_uint_fast16_t roundIncrement, roundBits;
-    jim_bool isTiny;
-    jim_uint_fast64_t uiZ;
-    union jim_ui64_f64 uZ;
+    Hax_uint_fast8_t roundingMode;
+    Hax_bool roundNearEven;
+    Hax_uint_fast16_t roundIncrement, roundBits;
+    Hax_bool isTiny;
+    Hax_uint_fast64_t uiZ;
+    union Hax_ui64_f64 uZ;
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
-    roundingMode = jim_softfloat_roundingMode;
-    roundNearEven = (roundingMode == jim_softfloat_round_near_even);
+    roundingMode = Hax_softfloat_roundingMode;
+    roundNearEven = (roundingMode == Hax_softfloat_round_near_even);
     roundIncrement = 0x200;
-    if ( ! roundNearEven && (roundingMode != jim_softfloat_round_near_maxMag) ) {
+    if ( ! roundNearEven && (roundingMode != Hax_softfloat_round_near_maxMag) ) {
         roundIncrement =
             (roundingMode
-                 == (sign ? jim_softfloat_round_min : jim_softfloat_round_max))
+                 == (sign ? Hax_softfloat_round_min : Hax_softfloat_round_max))
                 ? 0x3FF
                 : 0;
     }
@@ -68,14 +68,14 @@ jim_double
             /*----------------------------------------------------------------
             *----------------------------------------------------------------*/
             isTiny =
-                (jim_softfloat_detectTininess == jim_softfloat_tininess_beforeRounding)
+                (Hax_softfloat_detectTininess == Hax_softfloat_tininess_beforeRounding)
                     || (exp < -1)
-                    || (sig + roundIncrement < JIM_UINT64_C( 0x8000000000000000 ));
-            sig = jim_softfloat_shiftRightJam64( sig, -exp );
+                    || (sig + roundIncrement < HAX_UINT64_C( 0x8000000000000000 ));
+            sig = Hax_softfloat_shiftRightJam64( sig, -exp );
             exp = 0;
             roundBits = sig & 0x3FF;
             if ( isTiny && roundBits ) {
-                jim_softfloat_raiseFlags( jim_softfloat_flag_underflow );
+                Hax_softfloat_raiseFlags( Hax_softfloat_flag_underflow );
             }
         } else if (
             (0x7FD < exp)
@@ -83,9 +83,9 @@ jim_double
         ) {
             /*----------------------------------------------------------------
             *----------------------------------------------------------------*/
-            jim_softfloat_raiseFlags(
-                jim_softfloat_flag_overflow | jim_softfloat_flag_inexact );
-            uiZ = jim_packToF64UI( sign, 0x7FF, 0 ) - ! roundIncrement;
+            Hax_softfloat_raiseFlags(
+                Hax_softfloat_flag_overflow | Hax_softfloat_flag_inexact );
+            uiZ = Hax_packToF64UI( sign, 0x7FF, 0 ) - ! roundIncrement;
             goto uiZ;
         }
     }
@@ -93,20 +93,20 @@ jim_double
     *------------------------------------------------------------------------*/
     sig = (sig + roundIncrement)>>10;
     if ( roundBits ) {
-        jim_softfloat_exceptionFlags |= jim_softfloat_flag_inexact;
+        Hax_softfloat_exceptionFlags |= Hax_softfloat_flag_inexact;
 #ifdef SOFTFLOAT_ROUND_ODD
-        if ( roundingMode == jim_softfloat_round_odd ) {
+        if ( roundingMode == Hax_softfloat_round_odd ) {
             sig |= 1;
             goto packReturn;
         }
 #endif
     }
-    sig &= ~(jim_uint_fast64_t) (! (roundBits ^ 0x200) & roundNearEven);
+    sig &= ~(Hax_uint_fast64_t) (! (roundBits ^ 0x200) & roundNearEven);
     if ( ! sig ) exp = 0;
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  packReturn:
-    uiZ = jim_packToF64UI( sign, exp, sig );
+    uiZ = Hax_packToF64UI( sign, exp, sig );
  uiZ:
     uZ.ui = uiZ;
     return uZ.f;
