@@ -44,7 +44,7 @@ int haxDoubleEq(Double a, Double b)
 {
     union Hax_ui64_f64 uA;
     Hax_uint_fast64_t uiA;
-    union hax_ui64_f64 uB;
+    union Hax_ui64_f64 uB;
     Hax_uint_fast64_t uiB;
 
     uA.f = a;
