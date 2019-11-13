@@ -34,33 +34,33 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-#ifndef jim_softfloat_mul64To128M
+#ifndef Hax_softfloat_mul64To128M
 
-void jim_softfloat_mul64To128M( jim_uint64_t a, jim_uint64_t b, jim_uint32_t *zPtr )
+void Hax_softfloat_mul64To128M( Hax_uint64_t a, Hax_uint64_t b, Hax_uint32_t *zPtr )
 {
-    jim_uint32_t a32, a0, b32, b0;
-    jim_uint64_t z0, mid1, z64, mid;
+    Hax_uint32_t a32, a0, b32, b0;
+    Hax_uint64_t z0, mid1, z64, mid;
 
     a32 = a>>32;
     a0 = a;
     b32 = b>>32;
     b0 = b;
-    z0 = (jim_uint64_t) a0 * b0;
-    mid1 = (jim_uint64_t) a32 * b0;
+    z0 = (Hax_uint64_t) a0 * b0;
+    mid1 = (Hax_uint64_t) a32 * b0;
     mid = mid1 + (uint64_t) a0 * b32;
-    z64 = (jim_uint64_t) a32 * b32;
-    z64 += (jim_uint64_t) (mid < mid1)<<32 | mid>>32;
+    z64 = (Hax_uint64_t) a32 * b32;
+    z64 += (Hax_uint64_t) (mid < mid1)<<32 | mid>>32;
     mid <<= 32;
     z0 += mid;
-    zPtr[jim_indexWord( 4, 1 )] = z0>>32;
-    zPtr[jim_indexWord( 4, 0 )] = z0;
+    zPtr[Hax_indexWord( 4, 1 )] = z0>>32;
+    zPtr[Hax_indexWord( 4, 0 )] = z0;
     z64 += (z0 < mid);
-    zPtr[jim_indexWord( 4, 3 )] = z64>>32;
-    zPtr[jim_indexWord( 4, 2 )] = z64;
+    zPtr[Hax_indexWord( 4, 3 )] = z64>>32;
+    zPtr[Hax_indexWord( 4, 2 )] = z64;
 
 }
 
