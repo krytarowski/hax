@@ -43,7 +43,7 @@ Hax_FloatToDouble(Float f)
 }
 
 Float hax_strtof( const char *, char ** );
-int hax_stof( hax_float, const char *, char *, unsigned int );
+int hax_stof( Float, const char *, char *, unsigned int );
 
 /*
  * 64-bit (double-precision) floating-point operations.
@@ -86,31 +86,31 @@ Hax_DoubleDiv(Double f1, Double f2)
 }
 
 static inline int
-Hax_doubleEq(Double f1, Double f2)
+Hax_DoubleEq(Double f1, Double f2)
 {
     return f1 == f2;
 }
 
 static inline int
-Hax_doubleLe(Double f1, Double f2)
+Hax_DoubleLe(Double f1, Double f2)
 {
     return f1 <= f2;
 }
 
 static inline int
-Hax_doubleLt(Double f1, Double f2)
+Hax_DoubleLt(Double f1, Double f2)
 {
     return f1 < f2;
 }
 
 static inline int
-Hax_doubleNeq(Double f1, Double f2)
+Hax_DoubleNeq(Double f1, Double f2)
 {
     return f1 != f2;
 }
 
 static inline int
-Hax_doubleGe(Double f1, Double f2)
+Hax_DoubleGe(Double f1, Double f2)
 {
     return f1 >= f2;
 }
