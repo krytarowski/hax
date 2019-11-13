@@ -34,39 +34,38 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
-#include "jim-softfloat-specialize.h"
-
-jim_double jim_float_to_double( jim_float a )
+Double Hax_FloatToDouble(Float a)
 {
-    union jim_ui32_f32 uA;
-    jim_uint_fast32_t uiA;
-    jim_bool sign;
-    jim_int_fast16_t exp;
-    jim_uint_fast32_t frac;
-    struct jim_commonNaN commonNaN;
-    jim_uint_fast64_t uiZ;
-    struct jim_exp16_sig32 normExpSig;
-    union jim_ui64_f64 uZ;
+    union Hax_ui32_f32 uA;
+    Hax_uint_fast32_t uiA;
+    Hax_bool sign;
+    Hax_int_fast16_t exp;
+    Hax_uint_fast32_t frac;
+    struct Hax_commonNaN commonNaN;
+    Hax_uint_fast64_t uiZ;
+    struct Hax_exp16_sig32 normExpSig;
+    union Hax_ui64_f64 uZ;
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     uA.f = a;
     uiA = uA.ui;
-    sign = jim_signF32UI( uiA );
-    exp  = jim_expF32UI( uiA );
-    frac = jim_fracF32UI( uiA );
+    sign = Hax_signF32UI( uiA );
+    exp  = Hax_expF32UI( uiA );
+    frac = Hax_fracF32UI( uiA );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     if ( exp == 0xFF ) {
         if ( frac ) {
-            jim_softfloat_f32UIToCommonNaN( uiA, &commonNaN );
-            uiZ = jim_softfloat_commonNaNToF64UI( &commonNaN );
+            Hax_softfloat_f32UIToCommonNaN( uiA, &commonNaN );
+            uiZ = Hax_softfloat_commonNaNToF64UI( &commonNaN );
         } else {
-            uiZ = jim_packToF64UI( sign, 0x7FF, 0 );
+            uiZ = Hax_packToF64UI( sign, 0x7FF, 0 );
         }
         goto uiZ;
     }
@@ -74,16 +73,16 @@ jim_double jim_float_to_double( jim_float a )
     *------------------------------------------------------------------------*/
     if ( ! exp ) {
         if ( ! frac ) {
-            uiZ = jim_packToF64UI( sign, 0, 0 );
+            uiZ = Hax_packToF64UI( sign, 0, 0 );
             goto uiZ;
         }
-        normExpSig = jim_softfloat_normSubnormalF32Sig( frac );
+        normExpSig = Hax_softfloat_normSubnormalF32Sig( frac );
         exp = normExpSig.exp - 1;
         frac = normExpSig.sig;
     }
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
-    uiZ = jim_packToF64UI( sign, exp + 0x380, (jim_uint_fast64_t) frac<<29 );
+    uiZ = Hax_packToF64UI( sign, exp + 0x380, (Hax_uint_fast64_t) frac<<29 );
  uiZ:
     uZ.ui = uiZ;
     return uZ.f;
