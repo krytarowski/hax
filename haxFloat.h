@@ -48,15 +48,15 @@ int hax_stof( hax_float, const char *, char *, unsigned int );
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
 static inline long long int
-Hax_double_to_LongLong(Double f)
+Hax_DoubleToLongLong(Double f)
 {
     return (long long int)f;
 }
 
-static inline hax_float
-Hax_double_to_float(Double f)
+static inline Float
+Hax_DoubleToFloat(Double f)
 {
-    return (hax_float)f;
+    return (Float)f;
 }
 
 static inline Double
