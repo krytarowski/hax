@@ -34,11 +34,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-int jim_double_gt( jim_double a, jim_double b )
+int Hax_DoubleGt(Double a, Double b)
 {
-    return jim_double_lt ( b, a );
+    return Hax_DoubleLt ( b, a );
 }
