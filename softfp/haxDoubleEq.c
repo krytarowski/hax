@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "haxSoftFloatSpecialize.h"
 
-int haxDoubleEq( Double a, Double b )
+int haxDoubleEq(Double a, Double b)
 {
     union Hax_ui64_f64 uA;
     Hax_uint_fast64_t uiA;

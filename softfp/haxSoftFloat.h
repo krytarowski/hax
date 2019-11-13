@@ -90,7 +90,7 @@ long long int		Hax_FloatToLongLong(Float);
 Double			Hax_FloatToDouble(Float);
 
 Float			Hax_strtof( const char *, char ** );
-int			Hax_stof( hax_float, const char *, char *, unsigned int );
+int			Hax_stof(Float, const char *, char *, unsigned int );
 
 /*----------------------------------------------------------------------------
 | 64-bit (double-precision) floating-point operations.
@@ -99,17 +99,17 @@ int			Hax_stof( hax_float, const char *, char *, unsigned int );
 long long int		Hax_DoubleToLongLong(Double);
 Float			Hax_DoubleToFloat(Double);
 
-Double			Hax_DoubleAdd(Double, Double);
-Double			hax_DoubleSub(Double, Double);
-Double			hax_DoubleMul(Double, Double);
-Double			hax_DoubleDiv(Double, Double);
+Double			Hax_DoubleAdd(Double a, Double b);
+Double			hax_DoubleSub(Double a, Double b);
+Double			hax_DoubleMul(Double a, Double b);
+Double			hax_DoubleDiv(Double a, Double b);
 
-int			Hax_DoubleEq(Double, Double);
-int			Hax_DoubleLe(Double, Double);
-int			Hax_DoubleLt(Double, Double);
-int			Hax_DoubleNeq(Double, Double);
-int			Hax_DoubleGe(Double, Double);
-int			Hax_DoubleGt(Double, Double);
+int			Hax_DoubleEq(Double a, Double b);
+int			Hax_DoubleLe(Double a, Double b);
+int			Hax_DoubleLt(Double a, Double b);
+int			Hax_DoubleNeq(Double a, Double b);
+int			Hax_DoubleGe(Double a, Double b);
+int			Hax_DoubleGt(Double a, Double b);
 
 Double Hax_strtod( const char *, char ** );
 int Hax_stod( Double, const char *, char *, unsigned int );
