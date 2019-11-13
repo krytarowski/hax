@@ -69,7 +69,7 @@ GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 
 UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
 
-SOFTFP_OBJS = haxDoubleEq.o
+SOFTFP_OBJS = softfp/haxDoubleEq.o
 
 COMPAT_OBJS =
 
