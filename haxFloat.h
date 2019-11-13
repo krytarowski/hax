@@ -29,77 +29,74 @@
 /*----------------------------------------------------------------------------
 | Hax float/double
 *----------------------------------------------------------------------------*/
-typedef float hax_float;
-typedef double hax_double;
+typedef float Float;
+typedef double Double;
 
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-static inline hax_float hax_longlong_to_float( long long int w )
+static inline Float Hax_LongLong_to_float( long long int w )
 {
-    return (hax_float)w;
+    return (Float)w;
 }
-static inline hax_double hax_longlong_to_double( long long int w )
+static inline Double Hax_LongLong_to_double( long long int w )
 {
-    return (hax_double)w;
+    return (Double)w;
 }
 
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-static inline long long int hax_float_to_longlong( hax_float f )
+static inline long long int Hax_float_to_LongLong( Float f )
 {
     return (long long int)f;
 }
-static inline hax_double hax_float_to_double( hax_float f )
+static inline Double hax_float_to_double( Float f )
 {
-    return (hax_double)f;
+    return (Double)f;
 }
 
-static inline hax_float hax_float_add( hax_float f1, hax_float f2 )
+static inline Float hax_float_add( Float f1, Float f2 )
 {
     return f1 + f2;
 }
-static inline hax_float hax_float_sub( hax_float f1, hax_float f2 )
+static inline Float hax_float_sub( Float f1, Float f2 )
 {
     return f1 - f2;
 }
-static inline hax_float hax_float_mul( hax_float f1, hax_float f2 )
+static inline Float hax_float_mul( Float f1, Float f2 )
 {
     return f1 * f2;
 }
-static inline hax_float hax_float_div( hax_float f1, hax_float f2 )
+static inline Float hax_float_div( Float f1, Float f2 )
 {
     return f1 / f2;
 }
 
-static inline int hax_float_eq( hax_float f1, hax_float f2 )
+static inline int hax_float_eq( Float f1, Float f2 )
 {
     return f1 == f2;
 }
-static inline int hax_float_le( hax_float f1, hax_float f2 )
+static inline int hax_float_le( Float f1, Float f2 )
 {
     return f1 <= f2;
 }
-static inline int hax_float_lt( hax_float f1, hax_float f2 )
+static inline int hax_float_lt( Float f1, Float f2 )
 {
     return f1 < f2;
 }
-static inline int hax_float_neq( hax_float f1, hax_float f2 )
+static inline int hax_float_neq( Float f1, Float f2 )
 {
     return f1 != f2;
 }
-static inline int hax_float_ge( hax_float f1, hax_float f2 )
+static inline int hax_float_ge( Float f1, Float f2 )
 {
     return f1 >= f2;
 }
-static inline int hax_float_gt( hax_float f1, hax_float f2 )
+static inline int hax_float_gt( Float f1, Float f2 )
 {
     return f1 > f2;
 }
-
-int hax_float_isnan( hax_float );
-int hax_float_isinf( hax_float );
 
 hax_float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
@@ -107,59 +104,56 @@ int hax_stof( hax_float, const char *, char *, unsigned int );
 /*----------------------------------------------------------------------------
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-static inline long long int hax_double_to_longlong( hax_double f )
+static inline long long int hax_double_to_LongLong( Double f )
 {
     return (long long int)f;
 }
-static inline hax_float hax_double_to_float( hax_double f )
+static inline hax_float hax_double_to_float( Double f )
 {
     return (hax_float)f;
 }
 
-static inline hax_double hax_double_add( hax_double f1, hax_double f2 )
+static inline Double hax_double_add( Double f1, Double f2 )
 {
     return f1 + f2;
 }
-static inline hax_double hax_double_sub( hax_double f1, hax_double f2 )
+static inline Double hax_double_sub( Double f1, Double f2 )
 {
     return f1 - f2;
 }
-static inline hax_double hax_double_mul( hax_double f1, hax_double f2 )
+static inline Double hax_double_mul( Double f1, Double f2 )
 {
     return f1 * f2;
 }
-static inline hax_double hax_double_div( hax_double f1, hax_double f2 )
+static inline Double hax_double_div( Double f1, Double f2 )
 {
     return f1 / f2;
 }
 
-static inline int hax_double_eq( hax_double f1, hax_double f2 )
+static inline int hax_double_eq( Double f1, Double f2 )
 {
     return f1 == f2;
 }
-static inline int hax_double_le( hax_double f1, hax_double f2 )
+static inline int hax_double_le( Double f1, Double f2 )
 {
     return f1 <= f2;
 }
-static inline int hax_double_lt( hax_double f1, hax_double f2 )
+static inline int hax_double_lt( Double f1, Double f2 )
 {
     return f1 < f2;
 }
-static inline int hax_double_neq( hax_double f1, hax_double f2 )
+static inline int hax_double_neq( Double f1, Double f2 )
 {
     return f1 != f2;
 }
-static inline int hax_double_ge( hax_double f1, hax_double f2 )
+static inline int hax_double_ge( Double f1, Double f2 )
 {
     return f1 >= f2;
 }
-static inline int hax_double_gt( hax_double f1, hax_double f2 )
+static inline int hax_double_gt( Double f1, Double f2 )
 {
     return f1 > f2;
 }
-
-int hax_double_isnan( hax_double );
-int hax_double_isinf( hax_double );
 
 hax_double hax_strtod( const char *, char ** );
 int hax_stod( hax_double, const char *, char *, unsigned int );
