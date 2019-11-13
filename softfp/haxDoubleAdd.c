@@ -34,37 +34,37 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-jim_double jim_double_add( jim_double a, jim_double b )
+Double Hax_DoubleAdd(Double a, Double b)
 {
-    union jim_ui64_f64 uA;
-    jim_uint_fast64_t uiA;
-    jim_bool signA;
-    union jim_ui64_f64 uB;
-    jim_uint_fast64_t uiB;
-    jim_bool signB;
+    union Hax_ui64_f64 uA;
+    Hax_uint_fast64_t uiA;
+    Hax_bool signA;
+    union Hax_ui64_f64 uB;
+    Hax_uint_fast64_t uiB;
+    Hax_bool signB;
 #if ! defined INLINE_LEVEL || (INLINE_LEVEL < 2)
-    jim_float64_t (*magsFuncPtr)( jim_uint_fast64_t, jim_uint_fast64_t, jim_bool );
+    Hax_float64_t (*magsFuncPtr)( Hax_uint_fast64_t, Hax_uint_fast64_t, Hax_bool );
 #endif
 
     uA.f = a;
     uiA = uA.ui;
-    signA = jim_signF64UI( uiA );
+    signA = Hax_signF64UI( uiA );
     uB.f = b;
     uiB = uB.ui;
-    signB = jim_signF64UI( uiB );
+    signB = Hax_signF64UI( uiB );
 #if defined INLINE_LEVEL && (2 <= INLINE_LEVEL)
     if ( signA == signB ) {
-        return jim_softfloat_addMagsF64( uiA, uiB, signA );
+        return Hax_softfloat_addMagsF64( uiA, uiB, signA );
     } else {
-        return jim_softfloat_subMagsF64( uiA, uiB, signA );
+        return Hax_softfloat_subMagsF64( uiA, uiB, signA );
     }
 #else
     magsFuncPtr =
-        (signA == signB) ? jim_softfloat_addMagsF64 : jim_softfloat_subMagsF64;
+        (signA == signB) ? Hax_softfloat_addMagsF64 : Hax_softfloat_subMagsF64;
     return (*magsFuncPtr)( uiA, uiB, signA );
 #endif
 
