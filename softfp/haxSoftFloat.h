@@ -80,42 +80,39 @@ HAX_CTASSERT(sizeof(Double) == 8);
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-Float			Hax_LongLongToFloat(long long int );
-Double			Hax_LongLongToDouble(long long int );
+Float			Hax_LongLongToFloat(long long int);
+Double			Hax_LongLongToDouble(long long int);
 
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-long long int		Hax_FloatToLongLong( Float );
-Double			Hax_FloatToDouble( Float );
+long long int		Hax_FloatToLongLong(Float);
+Double			Hax_FloatToDouble(Float);
 
-Float hax_strtof( const char *, char ** );
-int hax_stof( hax_float, const char *, char *, unsigned int );
+Float			Hax_strtof( const char *, char ** );
+int			Hax_stof( hax_float, const char *, char *, unsigned int );
 
 /*----------------------------------------------------------------------------
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
 
-long long int hax_double_to_longlong( hax_double );
-hax_float hax_double_to_float( hax_double );
+long long int		Hax_DoubleToLongLong(Double);
+Float			Hax_DoubleToFloat(Double);
 
-hax_double hax_double_add( hax_double, hax_double );
-hax_double hax_double_sub( hax_double, hax_double );
-hax_double hax_double_mul( hax_double, hax_double );
-hax_double hax_double_div( hax_double, hax_double );
+Double			Hax_DoubleAdd(Double, Double);
+Double			hax_DoubleSub(Double, Double);
+Double			hax_DoubleMul(Double, Double);
+Double			hax_DoubleDiv(Double, Double);
 
-int hax_double_eq( hax_double, hax_double );
-int hax_double_le( hax_double, hax_double );
-int hax_double_lt( hax_double, hax_double );
-int hax_double_neq( hax_double, hax_double );
-int hax_double_ge( hax_double, hax_double );
-int hax_double_gt( hax_double, hax_double );
+int			Hax_DoubleEq(Double, Double);
+int			Hax_DoubleLe(Double, Double);
+int			Hax_DoubleLt(Double, Double);
+int			Hax_DoubleNeq(Double, Double);
+int			Hax_DoubleGe(Double, Double);
+int			Hax_DoubleGt(Double, Double);
 
-int hax_double_isnan( hax_double );
-int hax_double_isinf( hax_double );
-
-hax_double hax_strtod( const char *, char ** );
-int hax_stod( hax_double, const char *, char *, unsigned int );
+Double Hax_strtod( const char *, char ** );
+int Hax_stod( Double, const char *, char *, unsigned int );
 
 /*----------------------------------------------------------------------------
 | Hax soft float/double commonly used constants
