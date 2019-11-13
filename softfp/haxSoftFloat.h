@@ -80,16 +80,16 @@ HAX_CTASSERT(sizeof(Double) == 8);
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-Float haxLongLongToFloat( long long int );
-Double haxLongLongToDouble( long long int );
+Float			Hax_LongLongToFloat(long long int );
+Double			Hax_LongLongToDouble(long long int );
 
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-long long int float_to_longlong( Float );
-hax_double hax_float_to_double( Float );
+long long int		Hax_FloatToLongLong( Float );
+Double			Hax_FloatToDouble( Float );
 
-hax_float hax_strtof( const char *, char ** );
+Float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
 
 /*----------------------------------------------------------------------------
