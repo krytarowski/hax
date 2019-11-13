@@ -33,6 +33,16 @@ typedef float Float;
 typedef double Double;
 
 /*
+ * Integer-to-floating-point conversion routines.
+ */
+
+static inline Double
+Hax_LongLongToDouble(long long int w)
+{
+    return (Double) w;
+}
+
+/*
  * 32-bit (single-precision) floating-point operations.
  */
 
@@ -121,8 +131,13 @@ Hax_DoubleGt(Double f1, Double f2)
     return f1 > f2;
 }
 
-Double hax_strtod(const char *, char **);
-int hax_stod(Double, const char *, char *, unsigned int);
+static inline Double
+Hax_strtod(const char *nptr, char **endptr)
+{
+    return strtod(nptr, endptr);
+}
+
+int Hax_stod(Double, const char *, char *, unsigned int);
 
 /*
  * Hax soft float/double commonly used constants
