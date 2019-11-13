@@ -34,23 +34,23 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-jim_double
-jim_softfloat_normRoundPackToF64( jim_bool sign, jim_int_fast16_t exp, jim_uint_fast64_t sig )
+Double
+jim_softfloat_normRoundPackToF64(Hax_bool sign, Hax_int_fast16_t exp, Hax_uint_fast64_t sig)
 {
-    jim_int_fast8_t shiftDist;
-    union jim_ui64_f64 uZ;
+    Hax_int_fast8_t shiftDist;
+    union Hax_ui64_f64 uZ;
 
-    shiftDist = jim_softfloat_countLeadingZeros64( sig ) - 1;
+    shiftDist = Hax_softfloat_countLeadingZeros64( sig ) - 1;
     exp -= shiftDist;
     if ( (10 <= shiftDist) && ((unsigned int) exp < 0x7FD) ) {
-        uZ.ui = jim_packToF64UI( sign, sig ? exp : 0, sig<<(shiftDist - 10) );
+        uZ.ui = Hax_packToF64UI( sign, sig ? exp : 0, sig<<(shiftDist - 10) );
         return uZ.f;
     } else {
-        return jim_softfloat_roundPackToF64( sign, exp, sig<<shiftDist );
+        return Hax_softfloat_roundPackToF64( sign, exp, sig<<shiftDist );
     }
 
 }
