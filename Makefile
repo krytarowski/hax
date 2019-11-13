@@ -82,7 +82,7 @@ SOFTFP_OBJS = softfp/haxDoubleEq.o softfp/haxDoubleNeq.o softfp/Hax_strtod.o \
 	softfp/Hax_s_approxRecip32_1.o softfp/Hax_s_subMagsF64.o \
 	softfp/Hax_s_approxRecip_1Ks.o softfp/Hax_s_addMagsF64.o \
 	softfp/haxDoubleToLongLong.o softfp/Hax_softfloat_roundMToI64.o \
-	softfp/Hax_s_shiftRightJamM.o
+	softfp/Hax_s_shiftRightJamM.o softfp/Hax_s_shortShiftRightJamM.o
 
 COMPAT_OBJS =
 
