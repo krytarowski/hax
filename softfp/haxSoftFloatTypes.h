@@ -92,7 +92,7 @@ typedef int Hax_bool;
 typedef struct { unsigned short v; } Hax_float16_t;
 typedef Float Hax_float32_t;
 typedef Double Hax_float64_t;
-typedef struct { uint64_t v[2]; } Hax_float128_t;
+typedef struct { Hax_uint64_t v[2]; } Hax_float128_t;
 
 HAX_CTASSERT(sizeof(Hax_float16_t) == 2);
 HAX_CTASSERT(sizeof(Hax_float32_t) == 4);
