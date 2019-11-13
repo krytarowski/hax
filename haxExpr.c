@@ -337,7 +337,7 @@ ExprLex(
 		valuePtr->doubleValue = hax_strtod(p, &term2);
 		if (errno == ERANGE) {
 		    Hax_ResetResult(interp);
-		    if (hax_double_eq(valuePtr->doubleValue, hax_DOUBLE_ZERO)) {
+		    if (Hax_DoubleEq(valuePtr->doubleValue, hax_DOUBLE_ZERO)) {
 			interp->result =
 				(char *) "floating-point value too small to "
 				    "represent";
