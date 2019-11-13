@@ -34,30 +34,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-#ifndef jim_softfloat_shiftRightJamM
+#ifndef Hax_softfloat_shiftRightJamM
 
-#define jim_softfloat_shiftRightJamM jim_softfloat_shiftRightJamM
+#define Hax_softfloat_shiftRightJamM Hax_softfloat_shiftRightJamM
 
 void
- jim_softfloat_shiftRightJamM(
-     jim_uint_fast8_t size_words,
-     const jim_uint32_t *aPtr,
-     jim_uint32_t dist,
-     jim_uint32_t *zPtr
+ Hax_softfloat_shiftRightJamM(
+     Hax_uint_fast8_t size_words,
+     const Hax_uint32_t *aPtr,
+     Hax_uint32_t dist,
+     Hax_uint32_t *zPtr
  )
 {
-    jim_uint32_t wordJam, wordDist, *ptr;
-    jim_uint_fast8_t i, innerDist;
+    Hax_uint32_t wordJam, wordDist, *ptr;
+    Hax_uint_fast8_t i, innerDist;
 
     wordJam = 0;
     wordDist = dist>>5;
     if ( wordDist ) {
         if ( size_words < wordDist ) wordDist = size_words;
-        ptr = (jim_uint32_t *) (aPtr + jim_indexMultiwordLo( size_words, wordDist ));
+        ptr = (Hax_uint32_t *) (aPtr + Hax_indexMultiwordLo( size_words, wordDist ));
         i = wordDist;
         do {
             wordJam = *ptr++;
@@ -67,33 +67,33 @@ void
         ptr = zPtr;
     }
     if ( wordDist < size_words ) {
-        aPtr += jim_indexMultiwordHiBut( size_words, wordDist );
+        aPtr += Hax_indexMultiwordHiBut( size_words, wordDist );
         innerDist = dist & 31;
         if ( innerDist ) {
-            jim_softfloat_shortShiftRightJamM(
+            Hax_softfloat_shortShiftRightJamM(
                 size_words - wordDist,
                 aPtr,
                 innerDist,
-                zPtr + jim_indexMultiwordLoBut( size_words, wordDist )
+                zPtr + Hax_indexMultiwordLoBut( size_words, wordDist )
             );
             if ( ! wordDist ) goto wordJam;
         } else {
-            aPtr += jim_indexWordLo( size_words - wordDist );
-            ptr = zPtr + jim_indexWordLo( size_words );
+            aPtr += Hax_indexWordLo( size_words - wordDist );
+            ptr = zPtr + Hax_indexWordLo( size_words );
             for ( i = size_words - wordDist; i; --i ) {
                 *ptr = *aPtr;
-                aPtr += jim_wordIncr;
-                ptr += jim_wordIncr;
+                aPtr += Hax_wordIncr;
+                ptr += Hax_wordIncr;
             }
         }
-        ptr = zPtr + jim_indexMultiwordHi( size_words, wordDist );
+        ptr = zPtr + Hax_indexMultiwordHi( size_words, wordDist );
     }
     do {
         *ptr++ = 0;
         --wordDist;
     } while ( wordDist );
  wordJam:
-    if ( wordJam ) zPtr[jim_indexWordLo( size_words )] |= 1;
+    if ( wordJam ) zPtr[Hax_indexWordLo( size_words )] |= 1;
 
 }
 
