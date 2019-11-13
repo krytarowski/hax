@@ -107,9 +107,9 @@ int			Hax_DoubleGt(Double a, Double b);
 Double Hax_strtod( const char *, char ** );
 int Hax_stod( Double, const char *, char *, unsigned int );
 
-/*----------------------------------------------------------------------------
-| Hax soft float/double commonly used constants
-*----------------------------------------------------------------------------*/
+/*
+ * Hax soft float/double commonly used constants
+ */
 
 #define HAX_DOUBLE_ZERO Hax_LongLongToDouble(0)
 #define HAX_DOUBLE_ONE Hax_LongLongToDouble(1)
