@@ -97,7 +97,7 @@ Hax_softfloat_roundPackToF32( Hax_bool sign, Hax_int_fast16_t exp, Hax_uint_fast
         }
 #endif
     }
-    sig &= ~(uint_fast32_t) (! (roundBits ^ 0x40) & roundNearEven);
+    sig &= ~(Hax_uint_fast32_t) (! (roundBits ^ 0x40) & roundNearEven);
     if ( ! sig ) exp = 0;
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
