@@ -51,7 +51,7 @@ void Hax_softfloat_mul64To128M( Hax_uint64_t a, Hax_uint64_t b, Hax_uint32_t *zP
     b0 = b;
     z0 = (Hax_uint64_t) a0 * b0;
     mid1 = (Hax_uint64_t) a32 * b0;
-    mid = mid1 + (uint64_t) a0 * b32;
+    mid = mid1 + (Hax_uint64_t) a0 * b32;
     z64 = (Hax_uint64_t) a32 * b32;
     z64 += (Hax_uint64_t) (mid < mid1)<<32 | mid>>32;
     mid <<= 32;
