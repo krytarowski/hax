@@ -736,7 +736,7 @@ Hax_ScanCmd(
 		break;
 
 	    case 'F':
-		sprintf(string, "%g", *((Double *) curField->location));
+		Hax_stod(*((Double *) curField->location), "%g", string, 100);
 		if (Hax_SetVar(interp, argv[i+3], string, 0) == NULL) {
 		    goto storeError;
 		}

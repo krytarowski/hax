@@ -1344,7 +1344,7 @@ Hax_ExprString(
 	if (value.type == TYPE_LLONG) {
 	    sprintf(interp->result, "%lld", value.llongValue);
 	} else if (value.type == TYPE_DOUBLE) {
-	    sprintf(interp->result, "%g", value.doubleValue);
+	    Hax_stod(value.doubleValue, "%g", interp->result, 100);
 	} else {
 	    if (value.pv.buffer != value.staticSpace) {
 		interp->result = value.pv.buffer;
