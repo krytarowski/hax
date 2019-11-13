@@ -34,39 +34,38 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
-#include "jim-softfloat-specialize.h"
-
-jim_wide jim_double_to_wide( jim_double a )
+long long int Hax_DoubleToLongLong(Double a)
 {
-    const jim_uint_fast8_t roundingMode = jim_softfloat_round_minMag;
-    const jim_bool exact = 0;
+    const Hax_uint_fast8_t roundingMode = Hax_softfloat_round_minMag;
+    const Hax_bool exact = 0;
 
-    union jim_ui64_f64 uA;
-    jim_uint_fast64_t uiA;
-    jim_bool sign;
-    jim_int_fast16_t exp;
-    jim_uint_fast64_t sig;
-    jim_int_fast16_t shiftDist;
+    union Hax_ui64_f64 uA;
+    Hax_uint_fast64_t uiA;
+    Hax_bool sign;
+    Hax_int_fast16_t exp;
+    Hax_uint_fast64_t sig;
+    Hax_int_fast16_t shiftDist;
 #ifdef SOFTFLOAT_FAST_INT64
-    struct jim_uint64_extra sigExtra;
+    struct Hax_uint64_extra sigExtra;
 #else
-    jim_uint32_t extSig[3];
+    Hax_uint32_t extSig[3];
 #endif
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     uA.f = a;
     uiA = uA.ui;
-    sign = jim_signF64UI( uiA );
-    exp  = jim_expF64UI( uiA );
-    sig  = jim_fracF64UI( uiA );
+    sign = Hax_signF64UI( uiA );
+    exp  = Hax_expF64UI( uiA );
+    sig  = Hax_fracF64UI( uiA );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
-    if ( exp ) sig |= JIM_UINT64_C( 0x0010000000000000 );
+    if ( exp ) sig |= HAX_UINT64_C( 0x0010000000000000 );
     shiftDist = 0x433 - exp;
 #ifdef SOFTFLOAT_FAST_INT64
     if ( shiftDist <= 0 ) {
@@ -74,31 +73,31 @@ jim_wide jim_double_to_wide( jim_double a )
         sigExtra.v = sig<<-shiftDist;
         sigExtra.extra = 0;
     } else {
-        sigExtra = jim_softfloat_shiftRightJam64Extra( sig, 0, shiftDist );
+        sigExtra = Hax_softfloat_shiftRightJam64Extra( sig, 0, shiftDist );
     }
     return
-        jim_softfloat_roundToI64(
+        Hax_softfloat_roundToI64(
             sign, sigExtra.v, sigExtra.extra, roundingMode, exact );
 #else
-    extSig[jim_indexWord( 3, 0 )] = 0;
+    extSig[Hax_indexWord( 3, 0 )] = 0;
     if ( shiftDist <= 0 ) {
         if ( shiftDist < -11 ) goto invalid;
         sig <<= -shiftDist;
-        extSig[jim_indexWord( 3, 2 )] = sig>>32;
-        extSig[jim_indexWord( 3, 1 )] = sig;
+        extSig[Hax_indexWord( 3, 2 )] = sig>>32;
+        extSig[Hax_indexWord( 3, 1 )] = sig;
     } else {
-        extSig[jim_indexWord( 3, 2 )] = sig>>32;
-        extSig[jim_indexWord( 3, 1 )] = sig;
-        jim_softfloat_shiftRightJam96M( extSig, shiftDist, extSig );
+        extSig[Hax_indexWord( 3, 2 )] = sig>>32;
+        extSig[Hax_indexWord( 3, 1 )] = sig;
+        Hax_softfloat_shiftRightJam96M( extSig, shiftDist, extSig );
     }
-    return jim_softfloat_roundMToI64( sign, extSig, roundingMode, exact );
+    return Hax_softfloat_roundMToI64( sign, extSig, roundingMode, exact );
 #endif
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  invalid:
-    jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
+    Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
     return
-        (exp == 0x7FF) && jim_fracF64UI( uiA ) ? jim_i64_fromNaN
-            : sign ? jim_i64_fromNegOverflow : jim_i64_fromPosOverflow;
+        (exp == 0x7FF) && Hax_fracF64UI( uiA ) ? Hax_i64_fromNaN
+            : sign ? Hax_i64_fromNegOverflow : Hax_i64_fromPosOverflow;
 
 }
