@@ -35,6 +35,7 @@ typedef double Double;
 /*
  * 32-bit (single-precision) floating-point operations.
  */
+
 static inline Double
 Hax_FloatToDouble(Float f)
 {
@@ -44,9 +45,10 @@ Hax_FloatToDouble(Float f)
 Float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
 
-/*----------------------------------------------------------------------------
-| 64-bit (double-precision) floating-point operations.
-*----------------------------------------------------------------------------*/
+/*
+ * 64-bit (double-precision) floating-point operations.
+ */
+
 static inline long long int
 Hax_DoubleToLongLong(Double f)
 {
@@ -122,9 +124,9 @@ Hax_DoubleGt(Double f1, Double f2)
 Double hax_strtod(const char *, char **);
 int hax_stod(Double, const char *, char *, unsigned int);
 
-/*----------------------------------------------------------------------------
-| Hax soft float/double commonly used constants
-*----------------------------------------------------------------------------*/
+/*
+ * Hax soft float/double commonly used constants
+ */
 
 #define HAX_DOUBLE_ZERO 0.0
 #define HAX_DOUBLE_ONE 1.0

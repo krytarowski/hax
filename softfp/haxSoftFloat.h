@@ -45,9 +45,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #error SoftFloat IEEE emulation not found
 #endif
 
-/*----------------------------------------------------------------------------
-| Compile Time Assert
-*----------------------------------------------------------------------------*/
+/*
+ * Compile Time Assert
+ */
 
 #ifdef __COUNTER__
 #define HAX_CTASSERT(x)		HAX_CTASSERT0(x, __haxctassert, __COUNTER__)
@@ -61,15 +61,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         unsigned int y ## z : /*CONSTCOND*/(x) ? 1 : -1;	\
     } y ## z ## _hax_struct
 
-/*----------------------------------------------------------------------------
-| SoftFloat implementation assumptions
-*----------------------------------------------------------------------------*/
+/*
+ * SoftFloat implementation assumptions
+ */
 
 HAX_CTASSERT(sizeof(long long int) == 8);
 
-/*----------------------------------------------------------------------------
-| Hax soft float/double
-*----------------------------------------------------------------------------*/
+/*
+ * Hax soft float/double
+ */
 
 typedef struct { unsigned int v; } Float;
 typedef struct { unsigned long long int v; } Double;
@@ -77,27 +77,20 @@ typedef struct { unsigned long long int v; } Double;
 HAX_CTASSERT(sizeof(Float) == 4);
 HAX_CTASSERT(sizeof(Double) == 8);
 
-/*----------------------------------------------------------------------------
-| Integer-to-floating-point conversion routines.
-*----------------------------------------------------------------------------*/
-Float			Hax_LongLongToFloat(long long int);
-Double			Hax_LongLongToDouble(long long int);
-
-/*----------------------------------------------------------------------------
-| 32-bit (single-precision) floating-point operations.
-*----------------------------------------------------------------------------*/
-long long int		Hax_FloatToLongLong(Float);
-Double			Hax_FloatToDouble(Float);
+/*
+ * 32-bit (single-precision) floating-point operations.
+ */
 
 Float			Hax_strtof( const char *, char ** );
-int			Hax_stof(Float, const char *, char *, unsigned int );
+int			Hax_stof(Float, const char *, char *,
+			    unsigned int );
 
-/*----------------------------------------------------------------------------
-| 64-bit (double-precision) floating-point operations.
-*----------------------------------------------------------------------------*/
+/*
+ * 64-bit (double-precision) floating-point operations.
+ */
 
-long long int		Hax_DoubleToLongLong(Double);
-Float			Hax_DoubleToFloat(Double);
+long long int		Hax_DoubleToLongLong(Double f);
+Float			Hax_DoubleToFloat(Double f);
 
 Double			Hax_DoubleAdd(Double a, Double b);
 Double			hax_DoubleSub(Double a, Double b);
@@ -118,9 +111,9 @@ int Hax_stod( Double, const char *, char *, unsigned int );
 | Hax soft float/double commonly used constants
 *----------------------------------------------------------------------------*/
 
-#define HAX_DOUBLE_ZERO hax_longlong_to_double(0)
-#define HAX_DOUBLE_ONE hax_longlong_to_double(1)
-#define HAX_DOUBLE_MINUSONE hax_longlong_to_double(-1)
+#define HAX_DOUBLE_ZERO Hax_LongLongToDouble(0)
+#define HAX_DOUBLE_ONE Hax_LongLongToDouble(1)
+#define HAX_DOUBLE_MINUSONE Hax_LongLongToDouble(-1)
 #define HAX_DOUBLE_HALF hax_double_div(hax_longlong_to_double(1), hax_longlong_to_double(2))
 #define HAX_DOUBLE_THOUSAND hax_longlong_to_double(1000)
 #define HAX_DOUBLE_MILLION hax_longlong_to_double(1000000)
