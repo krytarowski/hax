@@ -26,131 +26,95 @@
 #error SoftFloat IEEE emulation detected
 #endif
 
-/*----------------------------------------------------------------------------
-| Hax float/double
-*----------------------------------------------------------------------------*/
+/*
+ * Hax float/double
+ */
 typedef float Float;
 typedef double Double;
 
-/*----------------------------------------------------------------------------
-| Integer-to-floating-point conversion routines.
-*----------------------------------------------------------------------------*/
-static inline Float Hax_LongLong_to_float( long long int w )
-{
-    return (Float)w;
-}
-static inline Double Hax_LongLong_to_double( long long int w )
-{
-    return (Double)w;
-}
-
-/*----------------------------------------------------------------------------
-| 32-bit (single-precision) floating-point operations.
-*----------------------------------------------------------------------------*/
-static inline long long int Hax_float_to_LongLong( Float f )
-{
-    return (long long int)f;
-}
-static inline Double hax_float_to_double( Float f )
+/*
+ * 32-bit (single-precision) floating-point operations.
+ */
+static inline Double
+Hax_FloatToDouble(Float f)
 {
     return (Double)f;
 }
 
-static inline Float hax_float_add( Float f1, Float f2 )
-{
-    return f1 + f2;
-}
-static inline Float hax_float_sub( Float f1, Float f2 )
-{
-    return f1 - f2;
-}
-static inline Float hax_float_mul( Float f1, Float f2 )
-{
-    return f1 * f2;
-}
-static inline Float hax_float_div( Float f1, Float f2 )
-{
-    return f1 / f2;
-}
-
-static inline int hax_float_eq( Float f1, Float f2 )
-{
-    return f1 == f2;
-}
-static inline int hax_float_le( Float f1, Float f2 )
-{
-    return f1 <= f2;
-}
-static inline int hax_float_lt( Float f1, Float f2 )
-{
-    return f1 < f2;
-}
-static inline int hax_float_neq( Float f1, Float f2 )
-{
-    return f1 != f2;
-}
-static inline int hax_float_ge( Float f1, Float f2 )
-{
-    return f1 >= f2;
-}
-static inline int hax_float_gt( Float f1, Float f2 )
-{
-    return f1 > f2;
-}
-
-hax_float hax_strtof( const char *, char ** );
+Float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
 
 /*----------------------------------------------------------------------------
 | 64-bit (double-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-static inline long long int hax_double_to_LongLong( Double f )
+static inline long long int
+Hax_double_to_LongLong(Double f)
 {
     return (long long int)f;
 }
-static inline hax_float hax_double_to_float( Double f )
+
+static inline hax_float
+Hax_double_to_float(Double f)
 {
     return (hax_float)f;
 }
 
-static inline Double hax_double_add( Double f1, Double f2 )
+static inline Double
+Hax_DoubleAdd(Double f1, Double f2)
 {
     return f1 + f2;
 }
-static inline Double hax_double_sub( Double f1, Double f2 )
+
+static inline Double
+Hax_DoubleSub(Double f1, Double f2)
 {
     return f1 - f2;
 }
-static inline Double hax_double_mul( Double f1, Double f2 )
+
+static inline Double
+Hax_DoubleMul(Double f1, Double f2)
 {
     return f1 * f2;
 }
-static inline Double hax_double_div( Double f1, Double f2 )
+
+static inline Double
+Hax_DoubleDiv(Double f1, Double f2)
 {
     return f1 / f2;
 }
 
-static inline int hax_double_eq( Double f1, Double f2 )
+static inline int
+Hax_doubleEq(Double f1, Double f2)
 {
     return f1 == f2;
 }
-static inline int hax_double_le( Double f1, Double f2 )
+
+static inline int
+Hax_doubleLe(Double f1, Double f2)
 {
     return f1 <= f2;
 }
-static inline int hax_double_lt( Double f1, Double f2 )
+
+static inline int
+Hax_doubleLt(Double f1, Double f2)
 {
     return f1 < f2;
 }
-static inline int hax_double_neq( Double f1, Double f2 )
+
+static inline int
+Hax_doubleNeq(Double f1, Double f2)
 {
     return f1 != f2;
 }
-static inline int hax_double_ge( Double f1, Double f2 )
+
+static inline int
+Hax_doubleGe(Double f1, Double f2)
 {
     return f1 >= f2;
 }
-static inline int hax_double_gt( Double f1, Double f2 )
+
+static inline int
+Hax_DoubleGt(Double f1, Double f2)
 {
     return f1 > f2;
 }
