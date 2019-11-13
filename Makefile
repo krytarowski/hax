@@ -74,7 +74,7 @@ SOFTFP_OBJS = softfp/haxDoubleEq.o softfp/haxDoubleNeq.o softfp/Hax_strtod.o \
 	softfp/haxDoubleDiv.o softfp/haxDoubleAdd.o softfp/haxDoubleSub.o \
 	softfp/haxDoubleLt.o softfp/haxDoubleGt.o softfp/haxDoubleLe.o \
 	softfp/haxDoubleGe.o softfp/Hax_s_normRoundPackToF64.o \
-	softfp/Hax_s_normRoundPackToF64.o
+	softfp/Hax_s_normRoundPackToF64.o softfp/Hax_s_normSubnormalF64Sig.o \
 
 COMPAT_OBJS =
 

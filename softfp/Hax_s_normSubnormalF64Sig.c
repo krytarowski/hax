@@ -34,16 +34,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-struct jim_exp16_sig64 jim_softfloat_normSubnormalF64Sig( jim_uint_fast64_t sig )
+struct Hax_exp16_sig64 Hax_softfloat_normSubnormalF64Sig( Hax_uint_fast64_t sig )
 {
-    jim_int_fast8_t shiftDist;
-    struct jim_exp16_sig64 z;
+    Hax_int_fast8_t shiftDist;
+    struct Hax_exp16_sig64 z;
 
-    shiftDist = jim_softfloat_countLeadingZeros64( sig ) - 11;
+    shiftDist = Hax_softfloat_countLeadingZeros64( sig ) - 11;
     z.exp = 1 - shiftDist;
     z.sig = sig<<shiftDist;
     return z;
