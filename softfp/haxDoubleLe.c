@@ -34,31 +34,31 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-int jim_double_le( jim_double a, jim_double b )
+int Hax_DoubleLe(Double a, Double b)
 {
-    union jim_ui64_f64 uA;
-    jim_uint_fast64_t uiA;
-    union jim_ui64_f64 uB;
-    jim_uint_fast64_t uiB;
-    jim_bool signA, signB;
+    union Hax_ui64_f64 uA;
+    Hax_uint_fast64_t uiA;
+    union Hax_ui64_f64 uB;
+    Hax_uint_fast64_t uiB;
+    Hax_bool signA, signB;
 
     uA.f = a;
     uiA = uA.ui;
     uB.f = b;
     uiB = uB.ui;
-    if ( jim_isNaNF64UI( uiA ) || jim_isNaNF64UI( uiB ) ) {
-        jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
+    if ( Hax_isNaNF64UI( uiA ) || Hax_isNaNF64UI( uiB ) ) {
+        Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
         return 0;
     }
-    signA = jim_signF64UI( uiA );
-    signB = jim_signF64UI( uiB );
+    signA = Hax_signF64UI( uiA );
+    signB = Hax_signF64UI( uiB );
     return
         (signA != signB)
-            ? signA || ! ((uiA | uiB) & JIM_UINT64_C( 0x7FFFFFFFFFFFFFFF ))
+            ? signA || ! ((uiA | uiB) & HAX_UINT64_C( 0x7FFFFFFFFFFFFFFF ))
             : (uiA == uiB) || (signA ^ (uiA < uiB));
 
 }
