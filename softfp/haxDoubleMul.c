@@ -34,48 +34,47 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
-#include "jim-softfloat-specialize.h"
-
-jim_double jim_double_mul( jim_double a, jim_double b )
+Double haxDoubleMul(Double a, Double b)
 {
-    union jim_ui64_f64 uA;
-    jim_uint_fast64_t uiA;
-    jim_bool signA;
-    jim_int_fast16_t expA;
-    jim_uint_fast64_t sigA;
-    union jim_ui64_f64 uB;
-    jim_uint_fast64_t uiB;
-    jim_bool signB;
-    jim_int_fast16_t expB;
-    jim_uint_fast64_t sigB;
-    jim_bool signZ;
-    jim_uint_fast64_t magBits;
-    struct jim_exp16_sig64 normExpSig;
-    jim_int_fast16_t expZ;
+    union Hax_ui64_f64 uA;
+    Hax_uint_fast64_t uiA;
+    Hax_bool signA;
+    Hax_int_fast16_t expA;
+    Hax_uint_fast64_t sigA;
+    union Hax_ui64_f64 uB;
+    Hax_uint_fast64_t uiB;
+    Hax_bool signB;
+    Hax_int_fast16_t expB;
+    Hax_uint_fast64_t sigB;
+    Hax_bool signZ;
+    Hax_uint_fast64_t magBits;
+    struct Hax_exp16_sig64 normExpSig;
+    Hax_int_fast16_t expZ;
 #ifdef SOFTFLOAT_FAST_INT64
-    struct jim_uint128 sig128Z;
+    struct Hax_uint128 sig128Z;
 #else
-    jim_uint32_t sig128Z[4];
+    Hax_uint32_t sig128Z[4];
 #endif
-    jim_uint_fast64_t sigZ, uiZ;
-    union jim_ui64_f64 uZ;
+    Hax_uint_fast64_t sigZ, uiZ;
+    union Hax_ui64_f64 uZ;
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     uA.f = a;
     uiA = uA.ui;
-    signA = jim_signF64UI( uiA );
-    expA  = jim_expF64UI( uiA );
-    sigA  = jim_fracF64UI( uiA );
+    signA = Hax_signF64UI( uiA );
+    expA  = Hax_expF64UI( uiA );
+    sigA  = Hax_fracF64UI( uiA );
     uB.f = b;
     uiB = uB.ui;
-    signB = jim_signF64UI( uiB );
-    expB  = jim_expF64UI( uiB );
-    sigB  = jim_fracF64UI( uiB );
+    signB = Hax_signF64UI( uiB );
+    expB  = Hax_expF64UI( uiB );
+    sigB  = Hax_fracF64UI( uiB );
     signZ = signA ^ signB;
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
@@ -93,54 +92,54 @@ jim_double jim_double_mul( jim_double a, jim_double b )
     *------------------------------------------------------------------------*/
     if ( ! expA ) {
         if ( ! sigA ) goto zero;
-        normExpSig = jim_softfloat_normSubnormalF64Sig( sigA );
+        normExpSig = Hax_softfloat_normSubnormalF64Sig( sigA );
         expA = normExpSig.exp;
         sigA = normExpSig.sig;
     }
     if ( ! expB ) {
         if ( ! sigB ) goto zero;
-        normExpSig = jim_softfloat_normSubnormalF64Sig( sigB );
+        normExpSig = Hax_softfloat_normSubnormalF64Sig( sigB );
         expB = normExpSig.exp;
         sigB = normExpSig.sig;
     }
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     expZ = expA + expB - 0x3FF;
-    sigA = (sigA | JIM_UINT64_C( 0x0010000000000000 ))<<10;
-    sigB = (sigB | JIM_UINT64_C( 0x0010000000000000 ))<<11;
+    sigA = (sigA | HAX_UINT64_C( 0x0010000000000000 ))<<10;
+    sigB = (sigB | HAX_UINT64_C( 0x0010000000000000 ))<<11;
 #ifdef SOFTFLOAT_FAST_INT64
-    sig128Z = jim_softfloat_mul64To128( sigA, sigB );
+    sig128Z = Hax_softfloat_mul64To128( sigA, sigB );
     sigZ = sig128Z.v64 | (sig128Z.v0 != 0);
 #else
-    jim_softfloat_mul64To128M( sigA, sigB, sig128Z );
+    Hax_softfloat_mul64To128M( sigA, sigB, sig128Z );
     sigZ =
-        (jim_uint64_t) sig128Z[jim_indexWord( 4, 3 )]<<32 | sig128Z[jim_indexWord( 4, 2 )];
-    if ( sig128Z[jim_indexWord( 4, 1 )] || sig128Z[jim_indexWord( 4, 0 )] ) sigZ |= 1;
+        (Hax_uint64_t) sig128Z[Hax_indexWord( 4, 3 )]<<32 | sig128Z[Hax_indexWord( 4, 2 )];
+    if ( sig128Z[Hax_indexWord( 4, 1 )] || sig128Z[Hax_indexWord( 4, 0 )] ) sigZ |= 1;
 #endif
-    if ( sigZ < JIM_UINT64_C( 0x4000000000000000 ) ) {
+    if ( sigZ < HAX_UINT64_C( 0x4000000000000000 ) ) {
         --expZ;
         sigZ <<= 1;
     }
-    return jim_softfloat_roundPackToF64( signZ, expZ, sigZ );
+    return Hax_softfloat_roundPackToF64( signZ, expZ, sigZ );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  propagateNaN:
-    uiZ = jim_softfloat_propagateNaNF64UI( uiA, uiB );
+    uiZ = Hax_softfloat_propagateNaNF64UI( uiA, uiB );
     goto uiZ;
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  infArg:
     if ( ! magBits ) {
-        jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
-        uiZ = jim_defaultNaNF64UI;
+        Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
+        uiZ = Hax_defaultNaNF64UI;
     } else {
-        uiZ = jim_packToF64UI( signZ, 0x7FF, 0 );
+        uiZ = Hax_packToF64UI( signZ, 0x7FF, 0 );
     }
     goto uiZ;
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  zero:
-    uiZ = jim_packToF64UI( signZ, 0, 0 );
+    uiZ = Hax_packToF64UI( signZ, 0, 0 );
  uiZ:
     uZ.ui = uiZ;
     return uZ.f;
