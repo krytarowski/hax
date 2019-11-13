@@ -78,6 +78,12 @@ HAX_CTASSERT(sizeof(Float) == 4);
 HAX_CTASSERT(sizeof(Double) == 8);
 
 /*
+ * Integer-to-floating-point conversion routines.
+ */
+
+Double Hax_LongLongToDouble(long long int w);
+
+/*
  * 32-bit (single-precision) floating-point operations.
  */
 
