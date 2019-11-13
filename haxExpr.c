@@ -1122,7 +1122,7 @@ ExprMakeString(
     if (valuePtr->type == TYPE_LLONG) {
 	sprintf(valuePtr->pv.buffer, "%lld", valuePtr->llongValue);
     } else if (valuePtr->type == TYPE_DOUBLE) {
-	sprintf(valuePtr->pv.buffer, "%g", valuePtr->doubleValue);
+	Hax_stod(valuePtr->doubleValue, "%g", valuePtr->pv.buffer, 100);
     }
     valuePtr->type = TYPE_STRING;
 }
