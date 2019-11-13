@@ -176,11 +176,11 @@ int hax_stod( hax_double, const char *, char *, unsigned int );
 | Hax soft float/double commonly used constants
 *----------------------------------------------------------------------------*/
 
-#define hax_DOUBLE_ZERO hax_longlong_to_double(0)
-#define hax_DOUBLE_ONE hax_longlong_to_double(1)
-#define hax_DOUBLE_MINUSONE hax_longlong_to_double(-1)
-#define hax_DOUBLE_HALF hax_double_div(hax_longlong_to_double(1), hax_longlong_to_double(2))
-#define hax_DOUBLE_THOUSAND hax_longlong_to_double(1000)
-#define hax_DOUBLE_MILLION hax_longlong_to_double(1000000)
+#define HAX_DOUBLE_ZERO hax_longlong_to_double(0)
+#define HAX_DOUBLE_ONE hax_longlong_to_double(1)
+#define HAX_DOUBLE_MINUSONE hax_longlong_to_double(-1)
+#define HAX_DOUBLE_HALF hax_double_div(hax_longlong_to_double(1), hax_longlong_to_double(2))
+#define HAX_DOUBLE_THOUSAND hax_longlong_to_double(1000)
+#define HAX_DOUBLE_MILLION hax_longlong_to_double(1000000)
 
 #endif

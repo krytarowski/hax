@@ -219,10 +219,10 @@ ExprParseString(
 	}
 	if ((c == '.') || (c == 'e') || (c == 'E') || (errno == ERANGE)) {
 	    errno = 0;
-	    valuePtr->doubleValue = strtod(string, &term);
+	    valuePtr->doubleValue = hax_strtod(string, &term);
 	    if (errno == ERANGE) {
 		Hax_ResetResult(interp);
-		if (valuePtr->doubleValue == 0.0) {
+		if (hax_double_eq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
 		    Hax_AppendResult(interp, "floating-point value \"",
 			    string, "\" too small to represent",
 			    (char *) NULL);
@@ -334,10 +334,10 @@ ExprLex(
 		char *term2;
 
 		errno = 0;
-		valuePtr->doubleValue = strtod(p, &term2);
+		valuePtr->doubleValue = hax_strtod(p, &term2);
 		if (errno == ERANGE) {
 		    Hax_ResetResult(interp);
-		    if (valuePtr->doubleValue == 0.0) {
+		    if (hax_double_eq(valuePtr->doubleValue, hax_DOUBLE_ZERO)) {
 			interp->result =
 				(char *) "floating-point value too small to "
 				    "represent";
@@ -644,7 +644,7 @@ ExprGetValue(
 		    if (valuePtr->type == TYPE_LLONG) {
 			valuePtr->llongValue = -valuePtr->llongValue;
 		    } else if (valuePtr->type == TYPE_DOUBLE){
-			valuePtr->doubleValue = -valuePtr->doubleValue;
+			valuePtr->doubleValue = hax_double_mul(valuePtr->doubleValue, HAX_DOUBLE_MINUSONE);
 		    } else {
 			badType = valuePtr->type;
 			goto illegalType;
@@ -659,7 +659,7 @@ ExprGetValue(
 			 * "!valuePtr->llongValue", but apparently some
 			 * compilers can't handle it.
 			 */
-			if (valuePtr->doubleValue == 0.0) {
+			if (hax_double_eq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
 			    valuePtr->llongValue = 1;
 			} else {
 			    valuePtr->llongValue = 0;
@@ -719,7 +719,7 @@ ExprGetValue(
 
 	if ((op == AND) || (op == OR) || (op == QUESTY)) {
 	    if (valuePtr->type == TYPE_DOUBLE) {
-		valuePtr->llongValue = valuePtr->doubleValue != 0;
+		valuePtr->llongValue = hax_double_neq(valuePtr->doubleValue, HAX_DOUBLE_ZERO);
 		valuePtr->type = TYPE_LLONG;
 	    } else if (valuePtr->type == TYPE_STRING) {
 		badType = TYPE_STRING;
