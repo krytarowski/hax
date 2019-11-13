@@ -38,7 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "haxSoftFloat.h"
 #include "haxSoftFloatInternals.h"
 
-Double Hax_double_sub(Double a, Double b)
+Double Hax_DoubleSub(Double a, Double b)
 {
     union Hax_ui64_f64 uA;
     Hax_uint_fast64_t uiA;
