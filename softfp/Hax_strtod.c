@@ -34,14 +34,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-jim_double jim_strtod( const char *nptr, char **endptr )
+Double Hax_strtod(const char *nptr, char **endptr)
 {
     union {
-        jim_double jd;
+        Double jd;
         double reald;
     } u;
 
