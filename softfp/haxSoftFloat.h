@@ -50,15 +50,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *----------------------------------------------------------------------------*/
 
 #ifdef __COUNTER__
-#define HAX_CTASSERT(x)         HAX_CTASSERT0(x, __jimctassert, __COUNTER__)
+#define HAX_CTASSERT(x)		HAX_CTASSERT0(x, __haxctassert, __COUNTER__)
 #else
-#define HAX_CTASSERT(x)         HAX_CTASSERT99(x, __INCLUDE_LEVEL__, __LINE__)
-#define HAX_CTASSERT99(x, a, b) HAX_CTASSERT0(x, __hax_ctassert ## a, _ ## b)
+#define HAX_CTASSERT(x)		HAX_CTASSERT99(x, __INCLUDE_LEVEL__, __LINE__)
+#define HAX_CTASSERT99(x, a, b)	HAX_CTASSERT0(x, __hax_ctassert ## a, _ ## b)
 #endif
-#define HAX_CTASSERT0(x, y, z)  HAX_CTASSERT1(x, y, z)
-#define HAX_CTASSERT1(x, y, z)  				\
-    typedef struct { 						\
-        unsigned int y ## z : /*CONSTCOND*/(x) ? 1 : -1; 	\
+#define HAX_CTASSERT0(x, y, z)	HAX_CTASSERT1(x, y, z)
+#define HAX_CTASSERT1(x, y, z)					\
+    typedef struct {						\
+        unsigned int y ## z : /*CONSTCOND*/(x) ? 1 : -1;	\
     } y ## z ## _hax_struct
 
 /*----------------------------------------------------------------------------
@@ -71,38 +71,23 @@ HAX_CTASSERT(sizeof(long long int) == 8);
 | Hax soft float/double
 *----------------------------------------------------------------------------*/
 
-typedef struct { unsigned int v; } hax_float;
-typedef struct { unsigned long long int v; } hax_double;
+typedef struct { unsigned int v; } Float;
+typedef struct { unsigned long long int v; } Double;
 
-HAX_CTASSERT(sizeof(hax_float) == 4);
-HAX_CTASSERT(sizeof(hax_double) == 8);
+HAX_CTASSERT(sizeof(Float) == 4);
+HAX_CTASSERT(sizeof(Double) == 8);
 
 /*----------------------------------------------------------------------------
 | Integer-to-floating-point conversion routines.
 *----------------------------------------------------------------------------*/
-hax_float hax_longlong_to_float( long long int );
-hax_double hax_longlong_to_double( long long int );
+Float haxLongLongToFloat( long long int );
+Double haxLongLongToDouble( long long int );
 
 /*----------------------------------------------------------------------------
 | 32-bit (single-precision) floating-point operations.
 *----------------------------------------------------------------------------*/
-long long int hax_float_to_longlong( hax_float );
-hax_double hax_float_to_double( hax_float );
-
-hax_float hax_float_add( hax_float, hax_float );
-hax_float hax_float_sub( hax_float, hax_float );
-hax_float hax_float_mul( hax_float, hax_float );
-hax_float hax_float_div( hax_float, hax_float );
-
-int hax_float_eq( hax_float, hax_float );
-int hax_float_le( hax_float, hax_float );
-int hax_float_lt( hax_float, hax_float );
-int hax_float_neq( hax_float, hax_float );
-int hax_float_ge( hax_float, hax_float );
-int hax_float_gt( hax_float, hax_float );
-
-int hax_float_isnan( hax_float );
-int hax_float_isinf( hax_float );
+long long int float_to_longlong( Float );
+hax_double hax_float_to_double( Float );
 
 hax_float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
