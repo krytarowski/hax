@@ -34,34 +34,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-#ifndef jim_softfloat_shortShiftRightJamM
+#ifndef Hax_softfloat_shortShiftRightJamM
 
 void
- jim_softfloat_shortShiftRightJamM(
-     jim_uint_fast8_t size_words,
-     const jim_uint32_t *aPtr,
-     jim_uint_fast8_t dist,
-     jim_uint32_t *zPtr
+ Hax_softfloat_shortShiftRightJamM(
+     Hax_uint_fast8_t size_words,
+     const Hax_uint32_t *aPtr,
+     Hax_uint_fast8_t dist,
+     Hax_uint32_t *zPtr
  )
 {
-    jim_uint_fast8_t uNegDist;
+    Hax_uint_fast8_t uNegDist;
     unsigned int index, lastIndex;
-    jim_uint32_t partWordZ, wordA;
+    Hax_uint32_t partWordZ, wordA;
 
     uNegDist = -dist;
-    index = jim_indexWordLo( size_words );
-    lastIndex = jim_indexWordHi( size_words );
+    index = Hax_indexWordLo( size_words );
+    lastIndex = Hax_indexWordHi( size_words );
     wordA = aPtr[index];
     partWordZ = wordA>>dist;
     if ( partWordZ<<dist != wordA ) partWordZ |= 1;
     while ( index != lastIndex ) {
-        wordA = aPtr[index + jim_wordIncr];
+        wordA = aPtr[index + Hax_wordIncr];
         zPtr[index] = wordA<<(uNegDist & 31) | partWordZ;
-        index += jim_wordIncr;
+        index += Hax_wordIncr;
         partWordZ = wordA>>dist;
     }
     zPtr[index] = partWordZ;
