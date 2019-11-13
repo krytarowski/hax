@@ -34,11 +34,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
-
-#include "jim-softfloat-specialize.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
 /*----------------------------------------------------------------------------
 | Interpreting 'uiA' and 'uiB' as the bit patterns of two 64-bit floating-
@@ -46,35 +45,35 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 | the combined NaN result.  If either 'uiA' or 'uiB' has the pattern of a
 | signaling NaN, the invalid exception is raised.
 *----------------------------------------------------------------------------*/
-jim_uint_fast64_t
- jim_softfloat_propagateNaNF64UI( jim_uint_fast64_t uiA, jim_uint_fast64_t uiB )
+Hax_uint_fast64_t
+ Hax_softfloat_propagateNaNF64UI( Hax_uint_fast64_t uiA, Hax_uint_fast64_t uiB )
 {
-    jim_bool isSigNaNA, isSigNaNB;
-    jim_uint_fast64_t uiNonsigA, uiNonsigB, uiMagA, uiMagB;
+    Hax_bool isSigNaNA, isSigNaNB;
+    Hax_uint_fast64_t uiNonsigA, uiNonsigB, uiMagA, uiMagB;
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
-    isSigNaNA = jim_softfloat_isSigNaNF64UI( uiA );
-    isSigNaNB = jim_softfloat_isSigNaNF64UI( uiB );
+    isSigNaNA = Hax_softfloat_isSigNaNF64UI( uiA );
+    isSigNaNB = Hax_softfloat_isSigNaNF64UI( uiB );
     /*------------------------------------------------------------------------
     | Make NaNs non-signaling.
     *------------------------------------------------------------------------*/
-    uiNonsigA = uiA | JIM_UINT64_C( 0x0008000000000000 );
-    uiNonsigB = uiB | JIM_UINT64_C( 0x0008000000000000 );
+    uiNonsigA = uiA | HAX_UINT64_C( 0x0008000000000000 );
+    uiNonsigB = uiB | HAX_UINT64_C( 0x0008000000000000 );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     if ( isSigNaNA | isSigNaNB ) {
-        jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
+        Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
         if ( isSigNaNA ) {
             if ( isSigNaNB ) goto returnLargerMag;
-            return jim_isNaNF64UI( uiB ) ? uiNonsigB : uiNonsigA;
+            return Hax_isNaNF64UI( uiB ) ? uiNonsigB : uiNonsigA;
         } else {
-            return jim_isNaNF64UI( uiA ) ? uiNonsigA : uiNonsigB;
+            return Hax_isNaNF64UI( uiA ) ? uiNonsigA : uiNonsigB;
         }
     }
  returnLargerMag:
-    uiMagA = uiA & JIM_UINT64_C( 0x7FFFFFFFFFFFFFFF );
-    uiMagB = uiB & JIM_UINT64_C( 0x7FFFFFFFFFFFFFFF );
+    uiMagA = uiA & HAX_UINT64_C( 0x7FFFFFFFFFFFFFFF );
+    uiMagB = uiB & HAX_UINT64_C( 0x7FFFFFFFFFFFFFFF );
     if ( uiMagA < uiMagB ) return uiNonsigB;
     if ( uiMagB < uiMagA ) return uiNonsigA;
     return (uiNonsigA < uiNonsigB) ? uiNonsigA : uiNonsigB;
