@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "haxSoftFloatInternals.h"
 
 Double
-jim_softfloat_normRoundPackToF64(Hax_bool sign, Hax_int_fast16_t exp, Hax_uint_fast64_t sig)
+Hax_softfloat_normRoundPackToF64(Hax_bool sign, Hax_int_fast16_t exp, Hax_uint_fast64_t sig)
 {
     Hax_int_fast8_t shiftDist;
     union Hax_ui64_f64 uZ;
