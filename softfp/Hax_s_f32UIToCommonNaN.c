@@ -34,11 +34,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
-
-#include "jim-softfloat-specialize.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
 /*----------------------------------------------------------------------------
 | Assuming `uiA' has the bit pattern of a 32-bit floating-point NaN, converts
@@ -46,14 +45,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 | location pointed to by `zPtr'.  If the NaN is a signaling NaN, the invalid
 | exception is raised.
 *----------------------------------------------------------------------------*/
-void jim_softfloat_f32UIToCommonNaN( jim_uint_fast32_t uiA, struct jim_commonNaN *zPtr )
+void Hax_softfloat_f32UIToCommonNaN( Hax_uint_fast32_t uiA, struct Hax_commonNaN *zPtr )
 {
 
-    if ( jim_softfloat_isSigNaNF32UI( uiA ) ) {
-        jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
+    if ( Hax_softfloat_isSigNaNF32UI( uiA ) ) {
+        Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
     }
     zPtr->sign = uiA>>31;
-    zPtr->v64  = (jim_uint_fast64_t) uiA<<41;
+    zPtr->v64  = (Hax_uint_fast64_t) uiA<<41;
     zPtr->v0   = 0;
 
 }
