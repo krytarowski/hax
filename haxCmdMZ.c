@@ -736,14 +736,14 @@ Hax_ScanCmd(
 		break;
 
 	    case 'F':
-		sprintf(string, "%g", *((double *) curField->location));
+		sprintf(string, "%g", *((Double *) curField->location));
 		if (Hax_SetVar(interp, argv[i+3], string, 0) == NULL) {
 		    goto storeError;
 		}
 		break;
 
 	    case 'f':
-		sprintf(string, "%g", *((float *) curField->location));
+		sprintf(string, "%g", *((Float *) curField->location));
 		if (Hax_SetVar(interp, argv[i+3], string, 0) == NULL) {
 		    goto storeError;
 		}
