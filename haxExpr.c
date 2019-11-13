@@ -334,10 +334,10 @@ ExprLex(
 		char *term2;
 
 		errno = 0;
-		valuePtr->doubleValue = hax_strtod(p, &term2);
+		valuePtr->doubleValue = Hax_strtod(p, &term2);
 		if (errno == ERANGE) {
 		    Hax_ResetResult(interp);
-		    if (Hax_DoubleEq(valuePtr->doubleValue, hax_DOUBLE_ZERO)) {
+		    if (Hax_DoubleEq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
 			interp->result =
 				(char *) "floating-point value too small to "
 				    "represent";
@@ -644,7 +644,7 @@ ExprGetValue(
 		    if (valuePtr->type == TYPE_LLONG) {
 			valuePtr->llongValue = -valuePtr->llongValue;
 		    } else if (valuePtr->type == TYPE_DOUBLE){
-			valuePtr->doubleValue = hax_double_mul(valuePtr->doubleValue, HAX_DOUBLE_MINUSONE);
+			valuePtr->doubleValue = Hax_DoubleMul(valuePtr->doubleValue, HAX_DOUBLE_MINUSONE);
 		    } else {
 			badType = valuePtr->type;
 			goto illegalType;
@@ -659,7 +659,7 @@ ExprGetValue(
 			 * "!valuePtr->llongValue", but apparently some
 			 * compilers can't handle it.
 			 */
-			if (hax_double_eq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
+			if (Hax_DoubleEq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
 			    valuePtr->llongValue = 1;
 			} else {
 			    valuePtr->llongValue = 0;

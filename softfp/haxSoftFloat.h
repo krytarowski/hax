@@ -99,9 +99,9 @@ long long int		Hax_DoubleToLongLong(Double f);
 Float			Hax_DoubleToFloat(Double f);
 
 Double			Hax_DoubleAdd(Double a, Double b);
-Double			hax_DoubleSub(Double a, Double b);
-Double			hax_DoubleMul(Double a, Double b);
-Double			hax_DoubleDiv(Double a, Double b);
+Double			Hax_DoubleSub(Double a, Double b);
+Double			Hax_DoubleMul(Double a, Double b);
+Double			Hax_DoubleDiv(Double a, Double b);
 
 int			Hax_DoubleEq(Double a, Double b);
 int			Hax_DoubleLe(Double a, Double b);
