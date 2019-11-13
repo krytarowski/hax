@@ -119,8 +119,8 @@ Hax_DoubleGt(Double f1, Double f2)
     return f1 > f2;
 }
 
-hax_double hax_strtod( const char *, char ** );
-int hax_stod( hax_double, const char *, char *, unsigned int );
+Double hax_strtod(const char *, char **);
+int hax_stod(Double, const char *, char *, unsigned int);
 
 /*----------------------------------------------------------------------------
 | Hax soft float/double commonly used constants
