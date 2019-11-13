@@ -73,6 +73,7 @@ SOFTFP_OBJS = softfp/haxDoubleEq.o softfp/haxDoubleNeq.o softfp/Hax_strtod.o \
 	softfp/haxLongLongToDouble.o softfp/haxDoubleMul.o \
 	softfp/haxDoubleDiv.o softfp/haxDoubleAdd.o softfp/haxDoubleSub.o \
 	softfp/haxDoubleLt.o softfp/haxDoubleGt.o softfp/haxDoubleLe.o \
+	softfp/haxDoubleGe.o
 
 COMPAT_OBJS =
 
