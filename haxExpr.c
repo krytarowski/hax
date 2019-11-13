@@ -219,10 +219,10 @@ ExprParseString(
 	}
 	if ((c == '.') || (c == 'e') || (c == 'E') || (errno == ERANGE)) {
 	    errno = 0;
-	    valuePtr->doubleValue = hax_strtod(string, &term);
+	    valuePtr->doubleValue = Hax_strtod(string, &term);
 	    if (errno == ERANGE) {
 		Hax_ResetResult(interp);
-		if (hax_double_eq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
+		if (Hax_DoubleEq(valuePtr->doubleValue, HAX_DOUBLE_ZERO)) {
 		    Hax_AppendResult(interp, "floating-point value \"",
 			    string, "\" too small to represent",
 			    (char *) NULL);
