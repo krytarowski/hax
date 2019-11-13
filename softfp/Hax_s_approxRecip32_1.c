@@ -40,8 +40,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef softfloat_approxRecip32_1
 
-extern const uint16_t Hax_softfloat_approxRecip_1k0s[16];
-extern const uint16_t Hax_softfloat_approxRecip_1k1s[16];
+extern const Hax_uint16_t Hax_softfloat_approxRecip_1k0s[16];
+extern const Hax_uint16_t Hax_softfloat_approxRecip_1k1s[16];
 
 Hax_uint32_t Hax_softfloat_approxRecip32_1( Hax_uint32_t a )
 {
