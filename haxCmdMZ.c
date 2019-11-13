@@ -743,7 +743,7 @@ Hax_ScanCmd(
 		break;
 
 	    case 'f':
-		sprintf(string, "%g", *((Float *) curField->location));
+		Hax_stod(Hax_FloatToDouble(*((Float *) curField->location)), "%g", string, 100);
 		if (Hax_SetVar(interp, argv[i+3], string, 0) == NULL) {
 		    goto storeError;
 		}

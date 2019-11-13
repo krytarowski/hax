@@ -87,6 +87,8 @@ Double Hax_LongLongToDouble(long long int w);
  * 32-bit (single-precision) floating-point operations.
  */
 
+Double			Hax_FloatToDouble(Float f);
+
 Float			Hax_strtof( const char *, char ** );
 int			Hax_stof(Float, const char *, char *,
 			    unsigned int );
