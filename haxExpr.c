@@ -47,7 +47,7 @@ int errno;
 
 typedef struct {
     long long int llongValue;	/* Integer value, if any. */
-    hax_double  doubleValue;	/* Floating-point value, if any. */
+    Double  doubleValue;	/* Floating-point value, if any. */
     ParseValue pv;		/* Used to hold a string value, if any. */
     char staticSpace[STATIC_STRING_SPACE];
 				/* Storage for small strings;  large ones

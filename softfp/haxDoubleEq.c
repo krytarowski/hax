@@ -34,31 +34,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
+#include "haxSoftFloat.h"
 #include "jim-softfloat-internals.h"
 
 #include "jim-softfloat-specialize.h"
 
-int jim_double_eq( jim_double a, jim_double b )
+int haxDoubleEq( Double a, Double b )
 {
-    union jim_ui64_f64 uA;
-    jim_uint_fast64_t uiA;
-    union jim_ui64_f64 uB;
-    jim_uint_fast64_t uiB;
+    union Hax_ui64_f64 uA;
+    Hax_uint_fast64_t uiA;
+    union hax_ui64_f64 uB;
+    Hax_uint_fast64_t uiB;
 
     uA.f = a;
     uiA = uA.ui;
     uB.f = b;
     uiB = uB.ui;
-    if ( jim_isNaNF64UI( uiA ) || jim_isNaNF64UI( uiB ) ) {
+    if ( Hax_isNaNF64UI( uiA ) || Hax_isNaNF64UI( uiB ) ) {
         if (
-            jim_softfloat_isSigNaNF64UI( uiA ) || jim_softfloat_isSigNaNF64UI( uiB )
+            Hax_softfloat_isSigNaNF64UI( uiA ) || Hax_softfloat_isSigNaNF64UI( uiB )
         ) {
-            jim_softfloat_raiseFlags( jim_softfloat_flag_invalid );
+            Hax_softfloat_raiseFlags( Hax_softfloat_flag_invalid );
         }
         return 0;
     }
-    return (uiA == uiB) || ! ((uiA | uiB) & JIM_UINT64_C( 0x7FFFFFFFFFFFFFFF ));
+    return (uiA == uiB) || ! ((uiA | uiB) & HAX_UINT64_C( 0x7FFFFFFFFFFFFFFF ));
 
 }
