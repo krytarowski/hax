@@ -34,18 +34,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
-#include "jim-softfloat-specialize.h"
-
-#ifndef JIM_THREAD_LOCAL
-#define JIM_THREAD_LOCAL
+#ifndef HAX_THREAD_LOCAL
+#define HAX_THREAD_LOCAL
 #endif
 
-JIM_THREAD_LOCAL jim_uint_fast8_t jim_softfloat_roundingMode = jim_softfloat_round_near_even;
-JIM_THREAD_LOCAL jim_uint_fast8_t jim_softfloat_detectTininess = jim_init_detectTininess;
-JIM_THREAD_LOCAL jim_uint_fast8_t jim_softfloat_exceptionFlags = 0;
+HAX_THREAD_LOCAL Hax_uint_fast8_t Hax_softfloat_roundingMode = Hax_softfloat_round_near_even;
+HAX_THREAD_LOCAL Hax_uint_fast8_t Hax_softfloat_detectTininess = Hax_init_detectTininess;
+HAX_THREAD_LOCAL Hax_uint_fast8_t Hax_softfloat_exceptionFlags = 0;
 
-JIM_THREAD_LOCAL jim_uint_fast8_t jim_extF80_roundingPrecision = 80;
+HAX_THREAD_LOCAL Hax_uint_fast8_t Hax_extF80_roundingPrecision = 80;
