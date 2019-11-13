@@ -34,6 +34,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
+#include <stdlib.h>
+
 #define _HAXSOFTFLOAT_INTERNAL
 #include "haxSoftFloat.h"
 #include "haxSoftFloatInternals.h"
