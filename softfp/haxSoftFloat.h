@@ -37,7 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef _HAXSOFTFLOAT
 #define _HAXSOFTFLOAT
 
-#if !defined(_HAX) || !defined(_HAXINT)
+#if !defined(_HAXSOFTFLOAT_INTERNAL) && (!defined(_HAX) || !defined(_HAXINT))
 #error This header shall not be included directly
 #endif
 
