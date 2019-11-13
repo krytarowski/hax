@@ -34,31 +34,30 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"                                                                                                                                                                              
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
+#include "haxSoftFloatSpecialize.h"
 
-#include "jim-softfloat-specialize.h"
-
-jim_float64_t
- jim_softfloat_addMagsF64( jim_uint_fast64_t uiA, jim_uint_fast64_t uiB, jim_bool signZ )
+Hax_float64_t
+ Hax_softfloat_addMagsF64( Hax_uint_fast64_t uiA, Hax_uint_fast64_t uiB, Hax_bool signZ )
 {
-    jim_int_fast16_t expA;
-    jim_uint_fast64_t sigA;
-    jim_int_fast16_t expB;
-    jim_uint_fast64_t sigB;
-    jim_int_fast16_t expDiff;
-    jim_uint_fast64_t uiZ;
-    jim_int_fast16_t expZ;
-    jim_uint_fast64_t sigZ;
-    union jim_ui64_f64 uZ;
+    Hax_int_fast16_t expA;
+    Hax_uint_fast64_t sigA;
+    Hax_int_fast16_t expB;
+    Hax_uint_fast64_t sigB;
+    Hax_int_fast16_t expDiff;
+    Hax_uint_fast64_t uiZ;
+    Hax_int_fast16_t expZ;
+    Hax_uint_fast64_t sigZ;
+    union Hax_ui64_f64 uZ;
 
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
-    expA = jim_expF64UI( uiA );
-    sigA = jim_fracF64UI( uiA );
-    expB = jim_expF64UI( uiB );
-    sigB = jim_fracF64UI( uiB );
+    expA = Hax_expF64UI( uiA );
+    sigA = Hax_fracF64UI( uiA );
+    expB = Hax_expF64UI( uiB );
+    sigB = Hax_fracF64UI( uiB );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     expDiff = expA - expB;
@@ -75,7 +74,7 @@ jim_float64_t
             goto uiZ;
         }
         expZ = expA;
-        sigZ = JIM_UINT64_C( 0x0020000000000000 ) + sigA + sigB;
+        sigZ = HAX_UINT64_C( 0x0020000000000000 ) + sigA + sigB;
         sigZ <<= 9;
     } else {
         /*--------------------------------------------------------------------
@@ -85,16 +84,16 @@ jim_float64_t
         if ( expDiff < 0 ) {
             if ( expB == 0x7FF ) {
                 if ( sigB ) goto propagateNaN;
-                uiZ = jim_packToF64UI( signZ, 0x7FF, 0 );
+                uiZ = Hax_packToF64UI( signZ, 0x7FF, 0 );
                 goto uiZ;
             }
             expZ = expB;
             if ( expA ) {
-                sigA += JIM_UINT64_C( 0x2000000000000000 );
+                sigA += HAX_UINT64_C( 0x2000000000000000 );
             } else {
                 sigA <<= 1;
             }
-            sigA = jim_softfloat_shiftRightJam64( sigA, -expDiff );
+            sigA = Hax_softfloat_shiftRightJam64( sigA, -expDiff );
         } else {
             if ( expA == 0x7FF ) {
                 if ( sigA ) goto propagateNaN;
@@ -103,23 +102,23 @@ jim_float64_t
             }
             expZ = expA;
             if ( expB ) {
-                sigB += JIM_UINT64_C( 0x2000000000000000 );
+                sigB += HAX_UINT64_C( 0x2000000000000000 );
             } else {
                 sigB <<= 1;
             }
-            sigB = jim_softfloat_shiftRightJam64( sigB, expDiff );
+            sigB = Hax_softfloat_shiftRightJam64( sigB, expDiff );
         }
-        sigZ = JIM_UINT64_C( 0x2000000000000000 ) + sigA + sigB;
-        if ( sigZ < JIM_UINT64_C( 0x4000000000000000 ) ) {
+        sigZ = HAX_UINT64_C( 0x2000000000000000 ) + sigA + sigB;
+        if ( sigZ < HAX_UINT64_C( 0x4000000000000000 ) ) {
             --expZ;
             sigZ <<= 1;
         }
     }
-    return jim_softfloat_roundPackToF64( signZ, expZ, sigZ );
+    return Hax_softfloat_roundPackToF64( signZ, expZ, sigZ );
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
  propagateNaN:
-    uiZ = jim_softfloat_propagateNaNF64UI( uiA, uiB );
+    uiZ = Hax_softfloat_propagateNaNF64UI( uiA, uiB );
  uiZ:
     uZ.ui = uiZ;
     return uZ.f;
