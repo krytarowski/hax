@@ -719,7 +719,7 @@ ExprGetValue(
 
 	if ((op == AND) || (op == OR) || (op == QUESTY)) {
 	    if (valuePtr->type == TYPE_DOUBLE) {
-		valuePtr->llongValue = hax_double_neq(valuePtr->doubleValue, HAX_DOUBLE_ZERO);
+		valuePtr->llongValue = Hax_DoubleNeq(valuePtr->doubleValue, HAX_DOUBLE_ZERO);
 		valuePtr->type = TYPE_LLONG;
 	    } else if (valuePtr->type == TYPE_STRING) {
 		badType = TYPE_STRING;
