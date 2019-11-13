@@ -845,12 +845,12 @@ ExprGetValue(
 		    }
 		} else if (valuePtr->type == TYPE_DOUBLE) {
 		    if (value2.type == TYPE_LLONG) {
-			value2.doubleValue = value2.llongValue;
+			value2.doubleValue = Hax_LongLongToDouble(value2.llongValue);
 			value2.type = TYPE_DOUBLE;
 		    }
 		} else if (value2.type == TYPE_DOUBLE) {
 		     if (valuePtr->type == TYPE_LLONG) {
-			valuePtr->doubleValue = valuePtr->llongValue;
+			valuePtr->doubleValue = Hax_LongLongToDouble(valuePtr->llongValue);
 			valuePtr->type = TYPE_DOUBLE;
 		    }
 		}
