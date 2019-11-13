@@ -34,18 +34,18 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-#ifndef jim_softfloat_countLeadingZeros64
+#ifndef Hax_softfloat_countLeadingZeros64
 
-#define jim_softfloat_countLeadingZeros64 jim_softfloat_countLeadingZeros64
+#define Hax_softfloat_countLeadingZeros64 Hax_softfloat_countLeadingZeros64
 
-jim_uint_fast8_t jim_softfloat_countLeadingZeros64( jim_uint64_t a )
+Hax_uint_fast8_t Hax_softfloat_countLeadingZeros64( Hax_uint64_t a )
 {
-    jim_uint_fast8_t count;
-    jim_uint32_t a32;
+    Hax_uint_fast8_t count;
+    Hax_uint32_t a32;
 
     count = 0;
     a32 = a>>32;
@@ -64,7 +64,7 @@ jim_uint_fast8_t jim_softfloat_countLeadingZeros64( jim_uint64_t a )
         count += 8;
         a32 <<= 8;
     }
-    count += jim_softfloat_countLeadingZeros8[a32>>24];
+    count += Hax_softfloat_countLeadingZeros8[a32>>24];
     return count;
 
 }
