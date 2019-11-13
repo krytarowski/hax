@@ -101,26 +101,6 @@ static inline int hax_float_gt( hax_float f1, hax_float f2 )
 int hax_float_isnan( hax_float );
 int hax_float_isinf( hax_float );
 
-hax_float hax_float_sin( hax_float );
-hax_float hax_float_cos( hax_float );
-hax_float hax_float_tan( hax_float );
-hax_float hax_float_asin( hax_float );
-hax_float hax_float_acos( hax_float );
-hax_float hax_float_atan( hax_float );
-hax_float hax_float_atan2( hax_float );
-hax_float hax_float_sinh( hax_float );
-hax_float hax_float_cosh( hax_float );
-hax_float hax_float_tanh( hax_float );
-hax_float hax_float_ceil( hax_float );
-hax_float hax_float_floor( hax_float );
-hax_float hax_float_exp( hax_float );
-hax_float hax_float_log( hax_float );
-hax_float hax_float_log10( hax_float );
-hax_float hax_float_sqrt( hax_float );
-hax_float hax_float_pow( hax_float );
-hax_float hax_float_hypot( hax_float );
-hax_float hax_float_fmod( hax_float );
-
 hax_float hax_strtof( const char *, char ** );
 int hax_stof( hax_float, const char *, char *, unsigned int );
 
@@ -180,26 +160,6 @@ static inline int hax_double_gt( hax_double f1, hax_double f2 )
 
 int hax_double_isnan( hax_double );
 int hax_double_isinf( hax_double );
-
-hax_double hax_double_sin( hax_double );
-hax_double hax_double_cos( hax_double );
-hax_double hax_double_tan( hax_double );
-hax_double hax_double_asin( hax_double );
-hax_double hax_double_acos( hax_double );
-hax_double hax_double_atan( hax_double );
-hax_double hax_double_atan2( hax_double );
-hax_double hax_double_sinh( hax_double );
-hax_double hax_double_cosh( hax_double );
-hax_double hax_double_tanh( hax_double );
-hax_double hax_double_ceil( hax_double );
-hax_double hax_double_floor( hax_double );
-hax_double hax_double_exp( hax_double );
-hax_double hax_double_log( hax_double );
-hax_double hax_double_log10( hax_double );
-hax_double hax_double_sqrt( hax_double );
-hax_double hax_double_pow( hax_double );
-hax_double hax_double_hypot( hax_double );
-hax_double hax_double_fmod( hax_double );
 
 hax_double hax_strtod( const char *, char ** );
 int hax_stod( hax_double, const char *, char *, unsigned int );
