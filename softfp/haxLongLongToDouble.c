@@ -34,22 +34,22 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =============================================================================*/
 
-#include "jim.h"   
-#include "jim-floats.h"
-#include "jim-softfloat-internals.h"
+#define _HAXSOFTFLOAT_INTERNAL
+#include "haxSoftFloat.h"
+#include "haxSoftFloatInternals.h"
 
-jim_double jim_wide_to_double( jim_wide a )
+Double Hax_LongLongToDouble(long long int a)
 {
-    jim_bool sign;
-    union jim_ui64_f64 uZ;
-    jim_uint_fast64_t absA;
+    Hax_bool sign;
+    union Hax_ui64_f64 uZ;
+    Hax_uint_fast64_t absA;
 
     sign = (a < 0);
-    if ( ! (a & JIM_UINT64_C( 0x7FFFFFFFFFFFFFFF )) ) {
-        uZ.ui = sign ? jim_packToF64UI( 1, 0x43E, 0 ) : 0;
+    if ( ! (a & HAX_UINT64_C( 0x7FFFFFFFFFFFFFFF )) ) {
+        uZ.ui = sign ? Hax_packToF64UI( 1, 0x43E, 0 ) : 0;
         return uZ.f;
     }
-    absA = sign ? -(jim_uint_fast64_t) a : (jim_uint_fast64_t) a;
-    return jim_softfloat_normRoundPackToF64( sign, 0x43C, absA );
+    absA = sign ? -(Hax_uint_fast64_t) a : (Hax_uint_fast64_t) a;
+    return Hax_softfloat_normRoundPackToF64( sign, 0x43C, absA );
 
 }
