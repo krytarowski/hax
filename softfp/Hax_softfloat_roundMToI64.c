@@ -51,7 +51,7 @@ Hax_int_fast64_t
     /*------------------------------------------------------------------------
     *------------------------------------------------------------------------*/
     sig =
-        (uint64_t) extSigPtr[Hax_indexWord( 3, 2 )]<<32
+        (Hax_uint64_t) extSigPtr[Hax_indexWord( 3, 2 )]<<32
             | extSigPtr[Hax_indexWord( 3, 1 )];
     sigExtra = extSigPtr[Hax_indexWordLo( 3 )];
     if (
@@ -76,7 +76,7 @@ Hax_int_fast64_t
                 (sigExtra == 0x80000000)
                     && (roundingMode == Hax_softfloat_round_near_even)
             ) {
-                sig &= ~(uint_fast64_t) 1;
+                sig &= ~(Hax_uint_fast64_t) 1;
             }
         }
     }
