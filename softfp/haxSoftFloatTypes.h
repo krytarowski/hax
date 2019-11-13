@@ -37,92 +37,92 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef JIM_SOFTFLOAT_TYPES_H
 #define JIM_SOFTFLOAT_TYPES_H
 
-#include "jim.h"
+#include "haxSoftFloat.h"
 
 /*----------------------------------------------------------------------------
 | Auxiliary types.
 *----------------------------------------------------------------------------*/
 
-typedef unsigned char jim_uint8_t;
-typedef unsigned short jim_uint16_t;
-typedef unsigned int jim_uint32_t;
-typedef unsigned long long jim_uint64_t;
+typedef unsigned char Hax_uint8_t;
+typedef unsigned short Hax_uint16_t;
+typedef unsigned int Hax_uint32_t;
+typedef unsigned long long Hax_uint64_t;
 
-typedef signed char jim_int8_t;
-typedef signed short jim_int16_t;
-typedef signed int jim_int32_t;
-typedef signed long long jim_int64_t;
+typedef signed char Hax_int8_t;
+typedef signed short Hax_int16_t;
+typedef signed int Hax_int32_t;
+typedef signed long long Hax_int64_t;
 
-JIM_CTASSERT(sizeof(jim_uint8_t) == 1);
-JIM_CTASSERT(sizeof(jim_uint16_t) == 2);
-JIM_CTASSERT(sizeof(jim_uint32_t) == 4);
-JIM_CTASSERT(sizeof(jim_uint64_t) == 8);
+HAX_CTASSERT(sizeof(Hax_uint8_t) == 1);
+HAX_CTASSERT(sizeof(Hax_uint16_t) == 2);
+HAX_CTASSERT(sizeof(Hax_uint32_t) == 4);
+HAX_CTASSERT(sizeof(Hax_uint64_t) == 8);
 
-JIM_CTASSERT(sizeof(jim_int8_t) == 1);
-JIM_CTASSERT(sizeof(jim_int16_t) == 2);
-JIM_CTASSERT(sizeof(jim_int32_t) == 4);
-JIM_CTASSERT(sizeof(jim_int64_t) == 8);
+HAX_CTASSERT(sizeof(Hax_int8_t) == 1);
+HAX_CTASSERT(sizeof(Hax_int16_t) == 2);
+HAX_CTASSERT(sizeof(Hax_int32_t) == 4);
+HAX_CTASSERT(sizeof(Hax_int64_t) == 8);
 
 /*----------------------------------------------------------------------------
 | Compat types
 *----------------------------------------------------------------------------*/
 
-typedef unsigned char jim_uint_fast8_t;
-typedef unsigned short jim_uint_fast16_t;
-typedef unsigned int jim_uint_fast32_t;
-typedef unsigned long long jim_uint_fast64_t;
+typedef unsigned char Hax_uint_fast8_t;
+typedef unsigned short Hax_uint_fast16_t;
+typedef unsigned int Hax_uint_fast32_t;
+typedef unsigned long long Hax_uint_fast64_t;
 
-typedef signed char jim_int_fast8_t;
-typedef signed short jim_int_fast16_t;
-typedef signed int jim_int_fast32_t;
-typedef signed long long jim_int_fast64_t;
+typedef signed char Hax_int_fast8_t;
+typedef signed short Hax_int_fast16_t;
+typedef signed int Hax_int_fast32_t;
+typedef signed long long Hax_int_fast64_t;
 
-typedef unsigned char jim_uint_least8_t;
-typedef unsigned short jim_uint_least16_t;
-typedef unsigned int jim_uint_least32_t;
-typedef unsigned long long jim_uint_least64_t;
+typedef unsigned char Hax_uint_least8_t;
+typedef unsigned short Hax_uint_least16_t;
+typedef unsigned int Hax_uint_least32_t;
+typedef unsigned long long Hax_uint_least64_t;
 
-typedef signed char jim_int_least8_t;
-typedef signed short jim_int_least16_t;
-typedef signed int jim_int_least32_t;
-typedef signed long long jim_int_least64_t;
+typedef signed char Hax_int_least8_t;
+typedef signed short Hax_int_least16_t;
+typedef signed int Hax_int_least32_t;
+typedef signed long long Hax_int_least64_t;
 
-typedef int jim_bool;
+typedef int Hax_bool;
 
-typedef struct { unsigned short v; } jim_float16_t;
-typedef jim_float jim_float32_t;
-typedef jim_double jim_float64_t;
-typedef struct { uint64_t v[2]; } jim_float128_t;
+typedef struct { unsigned short v; } Hax_float16_t;
+typedef Float Hax_float32_t;
+typedef Double Hax_float64_t;
+typedef struct { uint64_t v[2]; } Hax_float128_t;
 
-JIM_CTASSERT(sizeof(jim_float16_t) == 2);
-JIM_CTASSERT(sizeof(jim_float32_t) == 4);
-JIM_CTASSERT(sizeof(jim_float64_t) == 8);
-JIM_CTASSERT(sizeof(jim_float128_t) == 16);
+HAX_CTASSERT(sizeof(Hax_float16_t) == 2);
+HAX_CTASSERT(sizeof(Hax_float32_t) == 4);
+HAX_CTASSERT(sizeof(Hax_float64_t) == 8);
+HAX_CTASSERT(sizeof(Hax_float128_t) == 16);
 
-struct jim_extFloat80M { jim_uint64_t signif; jim_uint16_t signExp; };
+struct Hax_extFloat80M { Hax_uint64_t signif; Hax_uint16_t signExp; };
 
 /*----------------------------------------------------------------------------
 | Compat macros
 *----------------------------------------------------------------------------*/
 
-#define JIM_INT8_C(c)       c
-#define JIM_INT16_C(c)      c
-#define JIM_INT32_C(c)      c
-#define JIM_INT64_C(c)      c##LL
+#define HAX_INT8_C(c)       c
+#define HAX_INT16_C(c)      c
+#define HAX_INT32_C(c)      c
+#define HAX_INT64_C(c)      c##LL
 
-#define JIM_UINT8_C(c)      c
-#define JIM_UINT16_C(c)     c
-#define JIM_UINT32_C(c)     c
-#define JIM_UINT64_C(c)     c##ULL
+#define HAX_UINT8_C(c)      c
+#define HAX_UINT16_C(c)     c
+#define HAX_UINT32_C(c)     c
+#define HAX_UINT64_C(c)     c##ULL
 
-#define JIM_INTMAX_C(c)     c##L
-#define JIM_UINTMAX_C(c)    c##UL
+#define HAX_INTMAX_C(c)     c##L
+#define HAX_UINTMAX_C(c)    c##UL
 
-JIM_CTASSERT(sizeof(long) == sizeof(void *));
-JIM_CTASSERT(sizeof(unsigned long) == sizeof(void *));
+HAX_CTASSERT(sizeof(long) == sizeof(void *));
+HAX_CTASSERT(sizeof(unsigned long) == sizeof(void *));
 
-#define JIM_INLINE static inline
-#define JIM_THREAD_LOCAL
+#define HAX_INLINE static inline
+#define HAX_THREAD_LOCAL
 
 #define INLINE_LEVEL 5
 
@@ -131,15 +131,15 @@ JIM_CTASSERT(sizeof(unsigned long) == sizeof(void *));
 | endian and little-endian platforms.
 *----------------------------------------------------------------------------*/
 
-#define jim_wordIncr 1
-#define jim_indexWord( total, n ) (n)
-#define jim_indexWordHi( total ) ((total) - 1)
-#define jim_indexWordLo( total ) 0
-#define jim_indexMultiword( total, m, n ) (n)
-#define jim_indexMultiwordHi( total, n ) ((total) - (n))
-#define jim_indexMultiwordLo( total, n ) 0
-#define jim_indexMultiwordHiBut( total, n ) (n)
-#define jim_indexMultiwordLoBut( total, n ) 0
-#define JIM_INIT_UINTM4( v3, v2, v1, v0 ) { v0, v1, v2, v3 }
+#define Hax_wordIncr 1
+#define Hax_indexWord( total, n ) (n)
+#define Hax_indexWordHi( total ) ((total) - 1)
+#define Hax_indexWordLo( total ) 0
+#define Hax_indexMultiword( total, m, n ) (n)
+#define Hax_indexMultiwordHi( total, n ) ((total) - (n))
+#define Hax_indexMultiwordLo( total, n ) 0
+#define Hax_indexMultiwordHiBut( total, n ) (n)
+#define Hax_indexMultiwordLoBut( total, n ) 0
+#define HAX_INIT_UINTM4( v3, v2, v1, v0 ) { v0, v1, v2, v3 }
 
 #endif
