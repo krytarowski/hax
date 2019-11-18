@@ -67,9 +67,11 @@ GENERIC_LOBJS =	haxRegexp.lo haxAssem.lo haxBasic.lo haxCkalloc.lo \
 	haxHash.lo haxHistory.lo haxParse.lo haxProc.lo haxUtil.lo \
 	haxVar.lo haxPanic.lo
 
-UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
+UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o \
+	haxBreakpoint.o
 
-UNIX_LOBJS = haxEnv.lo haxGlob.lo haxUnixAZ.lo haxUnixStr.lo haxUnixUtil.lo
+UNIX_LOBJS = haxEnv.lo haxGlob.lo haxUnixAZ.lo haxUnixStr.lo haxUnixUtil.lo \
+	haxBreakpoint.lo
 
 COMPAT_OBJS =
 
