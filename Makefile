@@ -60,12 +60,12 @@ all: libhax.la libhaxunix.la haxTest
 GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 	haxCmdAH.o haxCmdIL.o haxCmdMZ.o haxExpr.o haxGet.o \
 	haxHash.o haxHistory.o haxParse.o haxProc.o haxUtil.o \
-	haxVar.o haxPanic.o
+	haxVar.o haxPanic.o haxStrtol.o
 
 GENERIC_LOBJS =	haxRegexp.lo haxAssem.lo haxBasic.lo haxCkalloc.lo \
 	haxCmdAH.lo haxCmdIL.lo haxCmdMZ.lo haxExpr.lo haxGet.lo \
 	haxHash.lo haxHistory.lo haxParse.lo haxProc.lo haxUtil.lo \
-	haxVar.lo haxPanic.lo
+	haxVar.lo haxPanic.lo haxStrtol.lo
 
 UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o \
 	haxBreakpoint.o
