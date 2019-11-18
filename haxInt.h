@@ -33,9 +33,6 @@
 #ifndef _HAX
 #include "hax.h"
 #endif
-#ifndef _HAXHASH
-#include "haxHash.h"
-#endif
 #ifndef _REGEXP
 #include "haxRegexp.h"
 #endif
