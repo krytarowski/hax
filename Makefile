@@ -55,23 +55,21 @@ MAN_DIR ?=	man
 MAN3_DIR ?=	$(MAN_DIR)/man3
 MANN_DIR ?=	$(MAN_DIR)/mann
 
-all: libhax.la libhaxunix.la haxsh
+all: libhax.la libhaxunix.la haxsh rhaxsh
 
 GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 	haxCmdAH.o haxCmdIL.o haxCmdMZ.o haxExpr.o haxGet.o \
 	haxHash.o haxHistory.o haxParse.o haxProc.o haxUtil.o \
-	haxVar.o haxPanic.o haxStrtol.o
+	haxVar.o haxPanic.o haxStrtol.o haxBreakpoint.o
 
 GENERIC_LOBJS =	haxRegexp.lo haxAssem.lo haxBasic.lo haxCkalloc.lo \
 	haxCmdAH.lo haxCmdIL.lo haxCmdMZ.lo haxExpr.lo haxGet.lo \
 	haxHash.lo haxHistory.lo haxParse.lo haxProc.lo haxUtil.lo \
-	haxVar.lo haxPanic.lo haxStrtol.lo
+	haxVar.lo haxPanic.lo haxStrtol.lo haxBreakpoint.lo
 
-UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o \
-	haxBreakpoint.o
+UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
 
-UNIX_LOBJS = haxEnv.lo haxGlob.lo haxUnixAZ.lo haxUnixStr.lo haxUnixUtil.lo \
-	haxBreakpoint.lo
+UNIX_LOBJS = haxEnv.lo haxGlob.lo haxUnixAZ.lo haxUnixStr.lo haxUnixUtil.lo
 
 COMPAT_OBJS =
 
@@ -94,7 +92,12 @@ haxsh: libhax.la libhaxunix.la
 	${LIBTOOL} --mode=link --tag=CC ${CC} ${LDFLAGS} \
 		-o $@ haxsh.o libhax.la libhaxunix.la
 
-install: libhax.la libhaxunix.la haxsh
+rhaxsh: libhax.la
+	$(CC) $(CFLAGS) -o rhaxsh.o -c rhaxsh.c
+	${LIBTOOL} --mode=link --tag=CC ${CC} ${LDFLAGS} \
+		-o $@ rhaxsh.o libhax.la
+
+install: libhax.la libhaxunix.la haxsh rhaxsh
 	install -d $(DESTDIR)$(PREFIX)/$(BIN_DIR)
 	install -d $(DESTDIR)$(PREFIX)/$(LIB_DIR)
 	install -d $(DESTDIR)$(PREFIX)/$(HAX_LIBRARY)
@@ -104,6 +107,9 @@ install: libhax.la libhaxunix.la haxsh
 
 	${LIBTOOL} --mode=install install \
 		-c haxsh $(DESTDIR)$(PREFIX)/$(BIN_DIR)
+
+	${LIBTOOL} --mode=install install \
+		-c rhaxsh $(DESTDIR)$(PREFIX)/$(BIN_DIR)
 
 	cd library; for i in *.tcl; do \
 		install $$i $(DESTDIR)$(PREFIX)/$(HAX_LIBRARY); \
@@ -217,7 +223,7 @@ test: haxsh
 
 clean:
 	rm -f $(OBJS) $(UNIX_OBJS) libhax.a libhaxunix.a \
-		haxsh.o haxsh \
+		haxsh.o haxsh rhaxsh.o rhaxsh \
 		$(LOBJS) $(UNIX_LOBJS) libhax.la libhaxunix.la
 	rm -rf .libs
 
