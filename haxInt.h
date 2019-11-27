@@ -22,22 +22,19 @@
  * Common include files needed by most of the Hax source files are
  * included here, so that system-dependent personalizations for the
  * include files only have to be made in once place.  This results
- * in a few extra includes, but greater modularity.  The order of
- * the three groups of #includes is important.  For example, stdio.h
- * is needed by hax.h.
+ * in a few extra includes, but greater modularity.
  */
-
-#include <stdio.h>
-#include <stdarg.h>
 
 #ifndef _HAX
 #include "hax.h"
 #endif
 
+#include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <stdarg.h>
 
 /*
  *----------------------------------------------------------------
