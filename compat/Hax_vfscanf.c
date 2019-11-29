@@ -195,7 +195,21 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 					scanset[1+'\r'] = 0;
 					scanset[1+' '] = 0;
 				}
-			}
+			}  else {
+                               if (*++p == '^') p++, invert = 1;
+                               else invert = 0;
+                               memset(scanset, invert, sizeof scanset);
+                               scanset[0] = 0;
+                               if (*p == '-') p++, scanset[1+'-'] = 1-invert;
+                               else if (*p == ']') p++, scanset[1+']'] = 1-invert;
+                               for (; *p != ']'; p++) {
+                                       if (!*p) goto fmt_fail;
+                                       if (*p=='-' && p[1] && p[1] != ']')
+                                               for (c=p++[-1]; c<*p; c++)
+                                                       scanset[1+c] = 1-invert;
+                                       scanset[1+*p] = 1-invert;
+                               }
+                        }
 			s = 0;
 			i = 0;
 			k = t=='c' ? width+1U : 31;
