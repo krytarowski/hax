@@ -72,8 +72,7 @@ COMPAT_OBJS = haxPutChar.o \
 	compat/Hax___stdout_write.o compat/Hax_fwrite.o compat/Hax___towrite.o \
 	compat/Hax_sscanf.o compat/Hax_vsscanf.o compat/Hax___string_read.o \
 	compat/Hax_vfscanf.o compat/Hax_shgetc.o compat/Hax_intscan.o \
-	compat/Hax___uflow.o compat/Hax___toread.o compat/Hax_floatscan.o \
-	compat/Hax_fprintf.o
+	compat/Hax___uflow.o compat/Hax___toread.o compat/Hax_floatscan.o
 
 OBJS = $(GENERIC_OBJS) $(COMPAT_OBJS)
 
