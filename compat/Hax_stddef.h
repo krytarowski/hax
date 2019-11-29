@@ -47,9 +47,9 @@ typedef __PTRDIFF_TYPE__ ssize_t;
 #define SSIZE_T_DEFINED
 #endif
 
-#ifndef OFF_T_DEFINED  
-typedef __UINT64_TYPE__ off_t;   
-#define OFF_T_DEFINED  
+#ifndef OFF_T_DEFINED
+typedef __INT64_TYPE__ off_t;
+#define OFF_T_DEFINED
 #endif
 
 #ifndef PTRDIFF_T_DEFINED
@@ -60,11 +60,6 @@ typedef __PTRDIFF_TYPE__ ptrdiff_t;
 #ifndef WCHAR_T_DEFINED
 typedef __WCHAR_TYPE__ wchar_t;
 #define WCHAR_T_DEFINED
-#endif
-
-#ifndef OFF_T_DEFINED  
-typedef __UINT64_TYPE__ off_t;   
-#define OFF_T_DEFINED  
 #endif
 
 #ifndef UINTMAX_T_DEFINED
