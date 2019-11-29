@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio.h"
 #include "Hax_stdarg.h"
 
@@ -12,3 +13,4 @@ int Hax_sscanf(const char *restrict s, const char *restrict fmt, ...)
 	va_end(ap);
 	return ret;
 }
+#endif

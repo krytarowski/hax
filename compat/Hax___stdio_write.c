@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 #ifdef __cplusplus
@@ -57,3 +58,4 @@ size_t Hax___stdio_write(FILE *f, const unsigned char *buf, size_t len)
 		iov[0].iov_len -= cnt;
 	}
 }
+#endif

@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_shgetc.h"
 
 /* The shcnt field stores the number of bytes read so far, offset by
@@ -35,3 +36,4 @@ int Hax___shgetc(FILE *f)
 	if (f->rpos[-1] != c) f->rpos[-1] = c;
 	return c;
 }
+#endif

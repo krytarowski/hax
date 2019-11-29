@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 #include "Hax_string.h"
 
@@ -14,3 +15,4 @@ size_t Hax___string_read(FILE *f, unsigned char *buf, size_t len)
 	f->cookie = src+k;
 	return len;
 }
+#endif

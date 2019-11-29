@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stddef.h"
 #include "Hax_ctype.h"
 #include "Hax_shgetc.h"
@@ -92,3 +93,4 @@ done:
 	}
 	return (y^neg)-neg;
 }
+#endif

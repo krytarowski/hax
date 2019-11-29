@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 /* This function assumes it will never be called if there is already
@@ -9,3 +10,4 @@ int Hax___uflow(FILE *f)
 	if (!Hax___toread(f) && f->read(f, &c, 1)==1) return c;
 	return EOF;
 }
+#endif

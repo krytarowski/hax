@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 static size_t Hax_do_read(FILE *f, unsigned char *buf, size_t len)
@@ -13,3 +14,4 @@ int Hax_vsscanf(const char *restrict s, const char *restrict fmt, va_list ap)
 	};
 	return Hax_vfscanf(&f, fmt, ap);
 }
+#endif

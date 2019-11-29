@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 #ifdef __cplusplus
@@ -13,3 +14,4 @@ off_t Hax___stdio_seek(FILE *f, off_t off, int whence)
 	Hax_Panic((char *) "Not supported");
 	return 0;
 }
+#endif

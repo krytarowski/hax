@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdlib.h"
 #include "Hax_stdarg.h"
 #include "Hax_ctype.h"
@@ -282,3 +283,4 @@ match_fail:
 	FUNLOCK(f);
 	return matches;
 }
+#endif

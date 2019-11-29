@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 #include "Hax_string.h"
 
@@ -24,3 +25,4 @@ size_t Hax___fwritex(const unsigned char *restrict s, size_t l, FILE *restrict f
 	f->wpos += l;
 	return l+i;
 }
+#endif

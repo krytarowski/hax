@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_string.h"
 #include "Hax_stdarg.h"
 #include "Hax_stddef.h"
@@ -673,3 +674,4 @@ int Hax_vfprintf(FILE *restrict f, const char *restrict fmt, va_list ap)
 	va_end(ap2);
 	return ret;
 }
+#endif

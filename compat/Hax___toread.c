@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 int Hax___toread(FILE *f)
@@ -12,3 +13,4 @@ int Hax___toread(FILE *f)
 	f->rpos = f->rend = f->buf + f->buf_size;
 	return (f->flags & F_EOF) ? EOF : 0;
 }
+#endif

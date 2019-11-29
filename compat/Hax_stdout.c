@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 #undef stdout
@@ -16,3 +17,4 @@ FILE Hax___stdout_FILE = {
 };
 FILE *const Hax_stdout = &Hax___stdout_FILE;
 FILE *volatile Hax___stdout_used = &Hax___stdout_FILE;
+#endif

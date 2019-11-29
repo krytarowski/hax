@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio.h"
 #include <math.h>
 #include "Hax_stddef.h"
@@ -496,3 +497,4 @@ double Hax___floatscan(FILE *f, int prec, int pok)
 
 	return Hax_decfloat(f, c, bits, emin, sign, pok);
 }
+#endif

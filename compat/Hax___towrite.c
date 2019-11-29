@@ -1,3 +1,4 @@
+#ifdef HAX_FREESTANDING
 #include "Hax_stdio_impl.h"
 
 int Hax___towrite(FILE *f)
@@ -16,3 +17,4 @@ int Hax___towrite(FILE *f)
 
 	return 0;
 }
+#endif
