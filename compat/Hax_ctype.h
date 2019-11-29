@@ -45,7 +45,7 @@
 #define isalnum(x) Hax_isalnum(x)
 #define	isalpha(x) Hax_isalpha(x)
 #define	iscntrl(x) Hax_iscntrl(x)
-#define	isdigit(x) Hax_iscntrl(x)
+#define	isdigit(x) Hax_isdigit(x)
 #define	isgraph(x) Hax_isgraph(x)
 #define	islower(x) Hax_islower(x)
 #define	isprint(x) Hax_isprint(x)
