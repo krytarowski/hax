@@ -35,6 +35,7 @@
  * SUCH DAMAGE.
  */
 
+#if 0
 #include <sys/cdefs.h>
 #if defined(LIBC_SCCS) && !defined(lint)
 #if 0
@@ -43,6 +44,7 @@
 __RCSID("$NetBSD: ctype_.c,v 1.20 2013/04/13 10:21:20 joerg Exp $");
 #endif
 #endif /* LIBC_SCCS and not lint */
+#endif
 
 #include "Hax_ctype_bits.h"
 #include "Hax_ctype_local.h"

@@ -52,5 +52,5 @@ unsigned long
 
 long long int	strtoll(const char * restrict, char ** restrict, int);
 
-#endif /* !_STDLIB_H_ */
+#endif /* !_HAX_STDLIB_H_ */
 #endif
