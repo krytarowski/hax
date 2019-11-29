@@ -38,7 +38,7 @@ enum {
 	LONG, ULONG,
 	SHORT, USHORT, CHAR, UCHAR,
 	LLONG, SIZET, IMAX, UMAX, PDIFF, UIPTR,
-	DBL, LDBL,
+	DBL,
 	NOARG,
 	MAXSTATE
 };
@@ -80,8 +80,6 @@ static const unsigned char states[]['z'-'A'+1] = {
 		S('x') = UCHAR, S('X') = UCHAR,
 		S('n') = PTR,
 	}, { /* 5: L-prefixed */
-		S('e') = LDBL, S('f') = LDBL, S('g') = LDBL, S('a') = LDBL,
-		S('E') = LDBL, S('F') = LDBL, S('G') = LDBL, S('A') = LDBL,
 		S('n') = PTR,
 	}, { /* 6: z- or t-prefixed (assumed to be same size) */
 		S('d') = PDIFF, S('i') = PDIFF,
@@ -101,7 +99,7 @@ static const unsigned char states[]['z'-'A'+1] = {
 union arg
 {
 	uintmax_t i;
-	long double f;
+	double f;
 	void *p;
 };
 
@@ -125,7 +123,6 @@ static void Hax_pop_arg(union arg *arg, int type, va_list *ap)
 	break; case PDIFF:	arg->i = va_arg(*ap, ptrdiff_t);
 	break; case UIPTR:	arg->i = (uintptr_t)va_arg(*ap, void *);
 	break; case DBL:	arg->f = va_arg(*ap, double);
-	break; case LDBL:	arg->f = va_arg(*ap, long double);
 	}
 }
 
@@ -176,7 +173,7 @@ static char *Hax_fmt_u(uintmax_t x, char *s)
 typedef char compiler_defines_long_double_incorrectly[9-(int)sizeof(double)];
 #endif
 
-static int Hax_fmt_fp(FILE *f, long double y, int w, int p, int fl, int t)
+static int Hax_fmt_fp(FILE *f, double y, int w, int p, int fl, int t)
 {
 	uint32_t big[(DBL_MANT_DIG+28)/29 + 1          // mantissa expansion
 		+ (DBL_MAX_EXP+DBL_MANT_DIG+28+8)/9]; // exponent expansion
@@ -210,7 +207,7 @@ static int Hax_fmt_fp(FILE *f, long double y, int w, int p, int fl, int t)
 	if (y) e2--;
 
 	if ((t|32)=='a') {
-		long double round = 8.0;
+		double round = 8.0;
 		int re;
 
 		if (t&32) prefix += 9;
@@ -317,8 +314,8 @@ static int Hax_fmt_fp(FILE *f, long double y, int w, int p, int fl, int t)
 		x = *d % i;
 		/* Are there any significant digits past j? */
 		if (x || d+1!=z) {
-			long double round = 2/DBL_EPSILON;
-			long double small;
+			double round = 2/DBL_EPSILON;
+			double small;
 			if ((*d/i & 1) || (i==1000000000 && d>a && (d[-1]&1)))
 				round += 2;
 			if (x<i/2) small=0x0.8p0;

@@ -73,9 +73,9 @@ static double Hax_decfloat(FILE *f, int c, int bits, int emin, int sign, int pok
 	int e2;
 	int emax = -emin-bits+3;
 	int denormal = 0;
-	long double y;
-	long double frac=0;
-	long double bias=0;
+	double y;
+	double frac=0;
+	double bias=0;
 	static const int p10s[] = { 10, 100, 1000, 10000,
 		100000, 1000000, 10000000, 100000000 };
 
@@ -140,7 +140,7 @@ static double Hax_decfloat(FILE *f, int c, int bits, int emin, int sign, int pok
 
 	/* Optimize small integers (w/no exponent) and over/under-flow */
 	if (lrp==dc && dc<10 && (bits>30 || x[0]>>bits==0))
-		return sign * (long double)x[0];
+		return sign * (double)x[0];
 	if (lrp > -emin/2) {
 		return sign * DBL_MAX * DBL_MAX;
 	}
@@ -162,11 +162,11 @@ static double Hax_decfloat(FILE *f, int c, int bits, int emin, int sign, int pok
 
 	/* Optimize small to mid-size integers (even in exp. notation) */
 	if (lnz<9 && lnz<=rp && rp < 18) {
-		if (rp == 9) return sign * (long double)x[0];
-		if (rp < 9) return sign * (long double)x[0] / p10s[8-rp];
+		if (rp == 9) return sign * (double)x[0];
+		if (rp < 9) return sign * (double)x[0] / p10s[8-rp];
 		int bitlim = bits-3*(int)(rp-9);
 		if (bitlim>30 || x[0]>>bitlim==0)
-			return sign * (long double)x[0] * p10s[rp-10];
+			return sign * (double)x[0] * p10s[rp-10];
 	}
 
 	/* Drop trailing zeros */
@@ -311,9 +311,9 @@ static double Hax_decfloat(FILE *f, int c, int bits, int emin, int sign, int pok
 static double Hax_hexfloat(FILE *f, int bits, int emin, int sign, int pok)
 {
 	uint32_t x = 0;
-	long double y = 0;
-	long double scale = 1;
-	long double bias = 0;
+	double y = 0;
+	double scale = 1;
+	double bias = 0;
 	int gottail = 0, gotrad = 0, gotdig = 0;
 	long long rp = 0;
 	long long dc = 0;
@@ -410,7 +410,7 @@ static double Hax_hexfloat(FILE *f, int bits, int emin, int sign, int pok)
 
 	if (bits<32 && y && !(x&1)) x++, y=0;
 
-	y = bias + sign*(long double)x + sign*y;
+	y = bias + sign*(double)x + sign*y;
 	y -= bias;
 
 	return scalbn(y, e2);

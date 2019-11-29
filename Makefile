@@ -42,7 +42,7 @@
 AR	= ar
 RANLIB	= ranlib
 CC	= cc
-CFLAGS	= -DHAX_FREESTANDING
+CFLAGS	= -DHAX_FREESTANDING -O0 -g
 LDFLAGS	= -lm
 
 PREFIX ?=	/usr/local
