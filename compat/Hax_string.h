@@ -34,8 +34,8 @@
  *	@(#)string.h	8.1 (Berkeley) 6/2/93
  */
 
-#ifndef _STRING_H_
-#define	_STRING_H_
+#ifndef _HAX_STRING_H_
+#define	_HAX_STRING_H_
 
 #include "Hax_stddef.h"
 
@@ -51,5 +51,8 @@ size_t	 strspn(const char *, const char *);
 char	*strstr(const char *, const char *);
 int	strncmp(const char *, const char *, size_t);
 char	*strncpy(char * restrict, const char * restrict, size_t);
+size_t	 strnlen(const char *s, size_t maxlen);
+void	*memchr(const void *b, int c, size_t len);
+
 #endif /* !defined(_HAX_STRING_H_) */
 #endif

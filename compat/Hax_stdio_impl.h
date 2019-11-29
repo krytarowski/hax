@@ -146,9 +146,4 @@ int Hax_vsnprintf(char * restrict str, size_t, const char * restrict format, va_
 int Hax_vsscanf(const char * restrict str, const char * restrict format, va_list ap);
 int Hax_vfscanf(FILE * restrict stream, const char * restrict format, va_list ap);
 
-size_t strnlen(const char *s, size_t maxlen);
-void *memchr(const void *b, int c, size_t len);
-
-struct iovec { void *iov_base; size_t iov_len; };
-
 #endif

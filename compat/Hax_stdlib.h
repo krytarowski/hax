@@ -39,6 +39,17 @@
 
 #include "Hax_stddef.h"
 
+#define atoi(x) Hax_atoi(x)
+#define calloc(x, y) Hax_calloc((x), (y))
+#define free(x) Hax_free(x)
+#define malloc(x) Hax_malloc(x)
+#define qsort(a,b,c,d) Hax_qsort((a), (b), (c), (d))
+#define realloc(x, y) Hax_realloc((x), (y))
+#define strtod(x, y) Hax_strtod((x), (y))
+#define strtol(x, y, z) Hax_strtol((x), (y), (z))
+#define strtoul(x, y, z) Hax_strtoul((x), (y), (z))
+#define strtoll(x, y, z) Hax_strtol((x), (y), (z))
+
 int	 atoi(const char *);
 void	*calloc(size_t, size_t);
 void	 free(void *);

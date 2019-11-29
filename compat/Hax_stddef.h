@@ -257,5 +257,7 @@ typedef __INT64_TYPE__ int64_t;
 #define OFFSETOF_DEFINED
 #endif
 
+struct iovec { void *iov_base; size_t iov_len; };
+
 #endif /* _HAX_STDDEF_H_ */
 #endif

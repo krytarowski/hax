@@ -58,9 +58,9 @@
 	__attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
 #endif
 
-#define printf(x, ...) Hax_printf(x, ## __VA_ARGS__)
-#define sscanf(x, y, ...) Hax_sscanf(x, y, ## __VA_ARGS__)
-#define sprintf(x, y, ...) Hax_sprintf(x, y, ## __VA_ARGS__)
+#define printf(x, ...) Hax_printf((x), ## __VA_ARGS__)
+#define sscanf(x, y, ...) Hax_sscanf((x), (y), ## __VA_ARGS__)
+#define sprintf(x, y, ...) Hax_sprintf((x), (y), ## __VA_ARGS__)
 
 int	 Hax_printf(const char * restrict, ...)
 		__printflike(1, 2);
