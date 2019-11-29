@@ -305,7 +305,7 @@ static double Hax_decfloat(FILE *f, int c, int bits, int emin, int sign, int pok
 			;
 	}
 
-	return Hax_scalbnl(y, e2);
+	return scalbn(y, e2);
 }
 
 static double Hax_hexfloat(FILE *f, int bits, int emin, int sign, int pok)
@@ -413,7 +413,7 @@ static double Hax_hexfloat(FILE *f, int bits, int emin, int sign, int pok)
 	y = bias + sign*(long double)x + sign*y;
 	y -= bias;
 
-	return Hax_scalbnl(y, e2);
+	return scalbn(y, e2);
 }
 
 double Hax___floatscan(FILE *f, int prec, int pok)

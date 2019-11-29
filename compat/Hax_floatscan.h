@@ -3,6 +3,6 @@
 
 #include "Hax_stdio_impl.h"
 
-double __floatscan(FILE *, int, int);
+double Hax___floatscan(FILE *, int, int);
 
 #endif
