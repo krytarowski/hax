@@ -86,7 +86,7 @@ size_t Hax___stdout_write(FILE *, const unsigned char *, size_t);
 off_t Hax___stdio_seek(FILE *, off_t, int);
 int Hax___stdio_close(FILE *);
 
-size_t __string_read(FILE *, unsigned char *, size_t);
+size_t Hax___string_read(FILE *, unsigned char *, size_t);
 
 int __toread(FILE *);
 int Hax___towrite(FILE *);
@@ -143,7 +143,11 @@ int Hax_vfprintf(FILE * restrict stream, const char * restrict format, va_list a
 int Hax_vsprintf(char * restrict str, const char * restrict format, va_list ap);
 int Hax_vsprintf(char * restrict str, const char * restrict format, va_list ap);
 int Hax_vsnprintf(char * restrict str, size_t, const char * restrict format, va_list ap);
+int Hax_vsscanf(const char * restrict str, const char * restrict format, va_list ap);
+int Hax_vfscanf(FILE * restrict stream, const char * restrict format, va_list ap);
+
 size_t strnlen(const char *s, size_t maxlen);
+void *memchr(const void *b, int c, size_t len);
 
 struct iovec { void *iov_base; size_t iov_len; };
 

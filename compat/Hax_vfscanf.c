@@ -1,16 +1,12 @@
-#include <stdlib.h>
-#include <stdarg.h>
-#include <ctype.h>
-#include <wchar.h>
-#include <wctype.h>
-#include <limits.h>
-#include <string.h>
-#include <stdint.h>
+#include "Hax_stdlib.h"
+#include "Hax_stdarg.h"
+#include "Hax_ctype.h"
+#include "Hax_string.h"
 
-#include "stdio_impl.h"
-#include "shgetc.h"
-#include "intscan.h"
-#include "floatscan.h"
+#include "Hax_stdio_impl.h"
+#include "Hax_shgetc.h"
+#include "Hax_intscan.h"
+//#include "floatscan.h"
 
 #define SIZE_hh -2
 #define SIZE_h  -1
@@ -53,7 +49,7 @@ static void *arg_n(va_list ap, unsigned int n)
 	return p;
 }
 
-int vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
+int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 {
 	int width;
 	int size;
@@ -332,5 +328,3 @@ match_fail:
 	FUNLOCK(f);
 	return matches;
 }
-
-weak_alias(vfscanf,__isoc99_vfscanf);
