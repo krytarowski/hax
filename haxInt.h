@@ -29,12 +29,12 @@
 #include "hax.h"
 #endif
 
-#include <stdio.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdarg.h>
-#include <stddef.h>
+#include "Hax_stdio.h"
+#include "Hax_ctype.h"
+#include "Hax_stdlib.h"
+#include "Hax_string.h"
+#include "Hax_stdarg.h"
+#include "Hax_stddef.h"
 
 /*
  *----------------------------------------------------------------

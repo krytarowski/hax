@@ -42,8 +42,8 @@
 AR	= ar
 RANLIB	= ranlib
 CC	= cc
-CFLAGS	=
-LDFLAGS	=
+CFLAGS	= -DHAX_FREESTANDING
+LDFLAGS	= -lm
 
 PREFIX ?=	/usr/local
 HAX_LIBRARY ?=	lib/hax
@@ -63,7 +63,13 @@ GENERIC_OBJS =	haxRegexp.o haxAssem.o haxBasic.o haxCkalloc.o \
 
 UNIX_OBJS = haxEnv.o haxGlob.o haxUnixAZ.o haxUnixStr.o haxUnixUtil.o
 
-COMPAT_OBJS =
+COMPAT_OBJS = haxPutChar.o \
+	compat/Hax_ctype_.o compat/Hax_tolower_.o compat/Hax_toupper_.o \
+	compat/Hax_printf.o compat/Hax_vfprintf.o compat/Hax_sprintf.o \
+	compat/Hax_vsprintf.o compat/Hax_vsnprintf.o compat/Hax___towrite.o \
+	compat/Hax_stdout.o compat/Hax___stdio_close.o \
+	compat/Hax___stdio_seek.o compat/Hax___stdio_write.o haxPutChar.o \
+	compat/Hax___stdout_write.o compat/Hax_fwrite.o compat/Hax___towrite.o \
 
 OBJS = $(GENERIC_OBJS) $(COMPAT_OBJS)
 
@@ -212,4 +218,4 @@ $(UNIX_OJBS): hax.h haxUnix.h
 
 .SUFFIXES: .c .o
 .c.o:
-	$(CC) $(CFLAGS) -I. -DHAX_LIBRARY=\"$(PREFIX)/$(HAX_LIBRARY)\" -o $@ -c $<
+	$(CC) $(CFLAGS) -I. -Icompat -DHAX_LIBRARY=\"$(PREFIX)/$(HAX_LIBRARY)\" -o $@ -c $<
