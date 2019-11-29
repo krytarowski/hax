@@ -88,7 +88,7 @@ int Hax___stdio_close(FILE *);
 
 size_t Hax___string_read(FILE *, unsigned char *, size_t);
 
-int __toread(FILE *);
+int Hax___toread(FILE *);
 int Hax___towrite(FILE *);
 
 void __stdio_exit(void);
@@ -97,7 +97,7 @@ void __stdio_exit_needed(void);
 #if defined(__PIC__) && (100*__GNUC__+__GNUC_MINOR__ >= 303)
 __attribute__((visibility("protected")))
 #endif
-int __overflow(FILE *, int), __uflow(FILE *);
+int __overflow(FILE *, int), Hax___uflow(FILE *);
 
 int __fseeko(FILE *, off_t, int);
 int __fseeko_unlocked(FILE *, off_t, int);
@@ -126,7 +126,7 @@ void __getopt_msg(const char *, const char *, const char *, size_t);
 #define ferror(f) ((f)->flags & F_ERR)
 
 #define getc_unlocked(f) \
-	( ((f)->rpos != (f)->rend) ? *(f)->rpos++ : __uflow((f)) )
+	( ((f)->rpos != (f)->rend) ? *(f)->rpos++ : Hax___uflow((f)) )
 
 #define putc_unlocked(c, f) \
 	( (((unsigned char)(c)!=(f)->lbf && (f)->wpos!=(f)->wend)) \

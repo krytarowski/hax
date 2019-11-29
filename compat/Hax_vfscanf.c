@@ -6,7 +6,7 @@
 #include "Hax_stdio_impl.h"
 #include "Hax_shgetc.h"
 #include "Hax_intscan.h"
-//#include "floatscan.h"
+#include "Hax_floatscan.h"
 
 #define SIZE_hh -2
 #define SIZE_h  -1
@@ -58,8 +58,6 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 	const unsigned char *p;
 	int c, t;
 	char *s;
-	wchar_t *wcs;
-	mbstate_t st;
 	void *dest=NULL;
 	int invert;
 	int matches=0;
@@ -68,7 +66,6 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 	off_t pos = 0;
 	unsigned char scanset[257];
 	size_t i, k;
-	wchar_t wc;
 
 	FLOCK(f);
 
@@ -115,7 +112,6 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 		}
 
 		if (*p=='m') {
-			wcs = 0;
 			s = 0;
 			alloc = !!dest;
 			p++;
@@ -198,50 +194,11 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 					scanset[1+'\r'] = 0;
 					scanset[1+' '] = 0;
 				}
-			} else {
-				if (*++p == '^') p++, invert = 1;
-				else invert = 0;
-				memset(scanset, invert, sizeof scanset);
-				scanset[0] = 0;
-				if (*p == '-') p++, scanset[1+'-'] = 1-invert;
-				else if (*p == ']') p++, scanset[1+']'] = 1-invert;
-				for (; *p != ']'; p++) {
-					if (!*p) goto fmt_fail;
-					if (*p=='-' && p[1] && p[1] != ']')
-						for (c=p++[-1]; c<*p; c++)
-							scanset[1+c] = 1-invert;
-					scanset[1+*p] = 1-invert;
-				}
 			}
-			wcs = 0;
 			s = 0;
 			i = 0;
 			k = t=='c' ? width+1U : 31;
-			if (size == SIZE_l) {
-				if (alloc) {
-					wcs = malloc(k*sizeof(wchar_t));
-					if (!wcs) goto alloc_fail;
-				} else {
-					wcs = dest;
-				}
-				st = (mbstate_t){0};
-				while (scanset[(c=shgetc(f))+1]) {
-					switch (mbrtowc(&wc, &(char){c}, 1, &st)) {
-					case -1:
-						goto input_fail;
-					case -2:
-						continue;
-					}
-					if (wcs) wcs[i++] = wc;
-					if (alloc && i==k) {
-						k+=k+1;
-						wchar_t *tmp = realloc(wcs, k*sizeof(wchar_t));
-						if (!tmp) goto alloc_fail;
-						wcs = tmp;
-					}
-				}
-				if (!mbsinit(&st)) goto input_fail;
-			} else if (alloc) {
+			if (alloc) {
 				s = malloc(k);
 				if (!s) goto alloc_fail;
 				while (scanset[(c=shgetc(f))+1]) {
@@ -263,11 +220,9 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 			if (!shcnt(f)) goto match_fail;
 			if (t == 'c' && shcnt(f) != width) goto match_fail;
 			if (alloc) {
-				if (size == SIZE_l) *(wchar_t **)dest = wcs;
-				else *(char **)dest = s;
+				*(char **)dest = s;
 			}
 			if (t != 'c') {
-				if (wcs) wcs[i] = 0;
 				if (s) s[i] = 0;
 			}
 			break;
@@ -286,7 +241,7 @@ int Hax_vfscanf(FILE *restrict f, const char *restrict fmt, va_list ap)
 		case 'i':
 			base = 0;
 		int_common:
-			x = __intscan(f, base, 0, ULLONG_MAX);
+			x = Hax___intscan(f, base, 0, ULLONG_MAX);
 			if (!shcnt(f)) goto match_fail;
 			if (t=='p' && dest) *(void **)dest = (void *)(uintptr_t)x;
 			else store_int(dest, size, x);
@@ -322,7 +277,6 @@ input_fail:
 match_fail:
 		if (alloc) {
 			free(s);
-			free(wcs);
 		}
 	}
 	FUNLOCK(f);

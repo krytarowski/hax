@@ -129,12 +129,129 @@ typedef __INT64_TYPE__ int64_t;
 
 #define NL_ARGMAX 9
 
-#define ULONG_MAX (2UL*__LONG_MAX__+1UL)
-#define INTMAX_MAX __INTMAX_MAX__
-#define INT_MAX __INT_MAX__
-#define DBL_MANT_DIG __DBL_MANT_DIG__
-#define DBL_MAX_EXP __DBL_MAX_EXP__
-#define DBL_EPSILON __DBL_EPSILON__
+#ifndef CHAR_BIT
+#define CHAR_BIT	__CHAR_BIT__ 
+#endif
+
+#ifndef SCHAR_MIN
+#define SCHAR_MIN	(- __SCHAR_MAX__ - 1)
+#endif
+
+#ifndef SCHAR_MAX
+#define SCHAR_MAX	__SCHAR_MAX__
+#endif
+
+#ifndef UCHAR_MAX
+#define UCHAR_MAX	(2 * __SCHAR_MAX__ + 1)
+#endif
+
+#ifndef INT_MIN
+#define INT_MIN		(- __INT_MAX__ - 1)
+#endif
+
+#ifndef INT_MAX
+#define INT_MAX		__INT_MAX__
+#endif
+
+#ifndef UINT_MAX
+#define UINT_MAX	(2U * __INT_MAX__ - 1U)
+#endif
+
+#ifndef LONG_MIN
+#define LONG_MIN	(- __LONG_MAX__-1L)
+#endif
+
+#ifndef LONG_MAX
+#define LONG_MAX	__LONG_MAX__
+#endif
+
+#ifndef ULONG_MAX
+#define ULONG_MAX	(2UL * __LONG_MAX__ + 1UL)
+#endif
+
+#ifndef LLONG_MIN
+#define LLONG_MIN	(-__LONG_LONG_MAX__ - 1)
+#endif
+
+#ifndef LLONG_MAX
+#define LLONG_MAX	__LONG_LONG_MAX__
+#endif
+
+#ifndef ULLONG_MAX
+#define ULLONG_MAX	(2ULL * __LONG_LONG_MAX__ + 1ULL)
+#endif
+
+#ifndef SSIZE_MAX
+#define SSIZE_MAX	LONG_MAX
+#endif
+
+#ifndef SSIZE_MIN
+#define SSIZE_MIN	LONG_MIN
+#endif
+
+#ifndef SIZE_T_MAX
+#define SIZE_T_MAX	ULONG_MAX
+#endif
+
+#ifndef DBL_DIG
+#define DBL_DIG		__DBL_DIG__
+#endif
+
+#ifndef DBL_MAX
+#define DBL_MAX		__DBL_MAX__
+#endif
+
+#ifndef DBL_MIN
+#define DBL_MIN		__DBL_MIN__
+#endif
+
+#ifndef FLT_DIG
+#define FLT_DIG		__FLT_DIG__
+#endif
+
+#ifndef FLT_MAX
+#define FLT_MAX		__FLT_MAX__
+#endif
+
+#ifndef FLT_MIN
+#define FLT_MIN		__FLT_MIN__
+#endif
+
+#ifndef INTMAX_MAX
+#define INTMAX_MAX	__INTMAX_MAX__
+#endif
+
+#ifndef DBL_MANT_DIG
+#define DBL_MANT_DIG	__DBL_MANT_DIG__
+#endif
+
+#ifndef DBL_MIN_EXP
+#define DBL_MIN_EXP	__DBL_MIN_EXP__
+#endif
+
+#ifndef DBL_MAX_EXP
+#define DBL_MAX_EXP	__DBL_MAX_EXP__
+#endif
+
+#ifndef DBL_EPSILON
+#define DBL_EPSILON	__DBL_EPSILON__
+#endif
+
+#ifndef FLT_MANT_DIG
+#define FLT_MANT_DIG	__FLT_MANT_DIG__
+#endif
+
+#ifndef FLT_MIN_EXP
+#define FLT_MIN_EXP	__FLT_MIN_EXP__
+#endif
+
+#ifndef FLT_MAX_EXP
+#define FLT_MAX_EXP	__FLT_MAX_EXP__
+#endif
+
+#ifndef FLT_EPSILON
+#define FLT_EPSILON	__FLT_EPSILON__
+#endif
 
 #ifndef NULL
 #define NULL    ((void *)0)

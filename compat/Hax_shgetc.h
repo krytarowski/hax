@@ -20,12 +20,12 @@
  * with string pseudo-FILEs, shunget has unlimited pushback, back to the
  * beginning of the string. */
 
-void __shlim(FILE *, off_t);
-int __shgetc(FILE *);
+void Hax___shlim(FILE *, off_t);
+int Hax___shgetc(FILE *);
 
 #define shcnt(f) ((f)->shcnt + ((f)->rpos - (f)->buf))
-#define shlim(f, lim) __shlim((f), (lim))
-#define shgetc(f) (((f)->rpos != (f)->shend) ? *(f)->rpos++ : __shgetc(f))
+#define shlim(f, lim) Hax___shlim((f), (lim))
+#define shgetc(f) (((f)->rpos != (f)->shend) ? *(f)->rpos++ : Hax___shgetc(f))
 #define shunget(f) ((f)->shlim>=0 ? (void)(f)->rpos-- : (void)0)
 
 #define sh_fromstring(f, s) \
