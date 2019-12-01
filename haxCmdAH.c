@@ -275,7 +275,7 @@ Hax_ConcatCmd(
     }
 
     interp->result = Hax_Concat(interp, argc-1, argv+1);
-    interp->freeProc = (Hax_FreeProc *) free;
+    interp->freeProc = HAX_DYNAMIC;
     return HAX_OK;
 }
 
@@ -911,7 +911,7 @@ Hax_FormatCmd(
 
     interp->result = dst;
     if (dstSpace != HAX_RESULT_SIZE) {
-	interp->freeProc = (Hax_FreeProc *) free;
+	interp->freeProc = HAX_DYNAMIC;
     } else {
 	interp->freeProc = 0;
     }

@@ -259,5 +259,7 @@ typedef __INT64_TYPE__ int64_t;
 
 struct iovec { void *iov_base; size_t iov_len; };
 
+#define __UNCONST(a)	((void *)(unsigned long)(const void *)(a))
+
 #endif /* _HAX_STDDEF_H_ */
 #endif

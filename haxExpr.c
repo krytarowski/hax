@@ -1357,7 +1357,7 @@ Hax_ExprString(
 	} else {
 	    if (value.pv.buffer != value.staticSpace) {
 		interp->result = value.pv.buffer;
-		interp->freeProc = (Hax_FreeProc *) free;
+		interp->freeProc = HAX_DYNAMIC;
 		value.pv.buffer = value.staticSpace;
 	    } else {
 		Hax_SetResult(interp, value.pv.buffer, HAX_VOLATILE);

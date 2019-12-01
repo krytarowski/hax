@@ -145,9 +145,9 @@ typedef void (Hax_EnvDestroyProc) (Hax_Interp *interp, ClientData clientData);
  * the man page for details):
  */
 
+#define HAX_DYNAMIC	((Hax_FreeProc *) -2)
 #define HAX_VOLATILE	((Hax_FreeProc *) -1)
 #define HAX_STATIC	((Hax_FreeProc *) 0)
-#define HAX_DYNAMIC	((Hax_FreeProc *) free)
 
 /*
  * Flag values passed to variable-related procedures.
@@ -194,7 +194,6 @@ HAX_EXTERN void		Hax_ValidateAllMemory (Hax_Memoryp *, char *file,
 #define ckvalidateallmemory(m)					\
 	Hax_ValidateAllMemory((m), (char *) __FILE__, __LINE__)
 
-
 /*
  * Macro to free up result of interpreter.
  */
@@ -202,7 +201,7 @@ HAX_EXTERN void		Hax_ValidateAllMemory (Hax_Memoryp *, char *file,
 #define Hax_FreeResult(interp)					\
     do {							\
 	if ((interp)->freeProc != 0) {				\
-	    if ((interp)->freeProc == (Hax_FreeProc *) free) {	\
+	    if ((interp)->freeProc == HAX_DYNAMIC) {		\
 		ckfree(Hax_GetMemoryp(interp),			\
 		    (interp)->result);				\
 	    } else {						\

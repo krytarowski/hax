@@ -501,7 +501,7 @@ Hax_HistoryCmd(
 	}
 	RevResult(iPtr, words);
 	iPtr->result = words;
-	iPtr->freeProc = (Hax_FreeProc *) free;
+	iPtr->freeProc = HAX_DYNAMIC;
 	return HAX_OK;
     }
 

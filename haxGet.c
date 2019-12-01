@@ -176,10 +176,11 @@ Hax_GetDouble(
 				 * in a form acceptable to strtod. */
     void *doublePtr		/* Place to store converted result. */)
 {
+    Interp *iPtr = (Interp *) interp;
     char *end;
     double d;
 
-    d = strtod(string, &end);
+    d = Strtod(iPtr, string, &end);
     while ((*end != '\0') && isspace(*end)) {
 	end++;
     }

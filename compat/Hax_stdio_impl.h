@@ -3,21 +3,7 @@
 
 #include "Hax_stdio.h"
 #include "Hax_stdarg.h"
-
-#ifndef SIZE_T_DEFINED
-typedef __SIZE_TYPE__ size_t;
-#define SIZE_T_DEFINED
-#endif
-
-#ifndef SSIZE_T_DEFINED
-typedef __PTRDIFF_TYPE__ ssize_t;
-#define SSIZE_T_DEFINED
-#endif
-
-#ifndef OFF_T_DEFINED
-typedef __UINT64_TYPE__ off_t;
-#define OFF_T_DEFINED
-#endif
+#include "Hax_stddef.h"
 
 #define UNGET 8
 

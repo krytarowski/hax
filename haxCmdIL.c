@@ -434,7 +434,7 @@ Hax_InfoCmd(
 		goto levelError;
 	    }
 	    iPtr->result = Hax_Merge(interp, framePtr->argc, framePtr->argv);
-	    iPtr->freeProc = (Hax_FreeProc *) free;
+	    iPtr->freeProc = HAX_DYNAMIC;
 	    return HAX_OK;
 	}
 	Hax_AppendResult(interp, "wrong # args: should be \"", argv[0],
@@ -671,7 +671,7 @@ Hax_LindexCmd(
     }
     if (size >= HAX_RESULT_SIZE) {
 	interp->result = (char *) ckalloc(memoryp, (unsigned) size+1);
-	interp->freeProc = (Hax_FreeProc *) free;
+	interp->freeProc = HAX_DYNAMIC;
     }
     if (parenthesized) {
 	memcpy(interp->result, element, size);
@@ -799,7 +799,7 @@ Hax_ListCmd(
 	return HAX_ERROR;
     }
     interp->result = Hax_Merge(interp, argc-1, argv+1);
-    interp->freeProc = (Hax_FreeProc *) free;
+    interp->freeProc = HAX_DYNAMIC;
     return HAX_OK;
 }
 
@@ -1155,7 +1155,7 @@ Hax_LsortCmd(
     }
     qsort(listArgv, listArgc, sizeof (char *), SortCompareProc);
     interp->result = Hax_Merge(interp, listArgc, listArgv);
-    interp->freeProc = (Hax_FreeProc *) free;
+    interp->freeProc = HAX_DYNAMIC;
     ckfree(memoryp, (char *) listArgv);
     return HAX_OK;
 }

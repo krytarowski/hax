@@ -47,6 +47,8 @@ Strtol(
     int base)
 {
     long int result;
+
+#ifndef HAX_FREESTANDING
     int saved_errno;
 
     saved_errno = errno;
@@ -56,6 +58,9 @@ Strtol(
 	iPtr->internalErrno = ErrnoToInternalErrno(errno);
     }
     errno = saved_errno;
+#else
+    result = Hax_strtol(&iPtr->internalErrno, nptr, endptr, base);
+#endif
 
     return result;
 }
@@ -85,6 +90,8 @@ Strtoll(
     int base)
 {
     long long int result;
+
+#ifndef HAX_FREESTANDING
     int saved_errno;
 
     saved_errno = errno;
@@ -94,6 +101,9 @@ Strtoll(
 	iPtr->internalErrno = ErrnoToInternalErrno(errno);
     }
     errno = saved_errno;
+#else
+    result = Hax_strtoll(&iPtr->internalErrno, nptr, endptr, base);
+#endif
 
     return result;
 }
@@ -123,6 +133,8 @@ Strtoul(
     int base)
 {
     unsigned long int result;
+
+#ifndef HAX_FREESTANDING
     int saved_errno;
 
     saved_errno = errno;
@@ -132,6 +144,9 @@ Strtoul(
 	iPtr->internalErrno = ErrnoToInternalErrno(errno);
     }
     errno = saved_errno;
+#else
+    result = Hax_strtoul(&iPtr->internalErrno, nptr, endptr, base);
+#endif
 
     return result;
 }
@@ -160,6 +175,8 @@ Strtod(
     char **endptr)
 {
     double result;
+
+#ifndef HAX_FREESTANDING
     int saved_errno;
 
     saved_errno = errno;
@@ -169,10 +186,14 @@ Strtod(
 	iPtr->internalErrno = ErrnoToInternalErrno(errno);
     }
     errno = saved_errno;
+#else
+    result = Hax_strtod(&iPtr->internalErrno, nptr, endptr);
+#endif
 
     return result;
 }
 
+#ifndef HAX_FREESTANDING
 /*
  *----------------------------------------------------------------------
  *
@@ -205,3 +226,4 @@ ErrnoToInternalErrno(int e)
     /* NOTREACHABLE */
     return 0;
 }
+#endif

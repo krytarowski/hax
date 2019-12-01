@@ -966,7 +966,7 @@ Hax_SetResult(
 	length = strlen(string);
 	if (length > HAX_RESULT_SIZE) {
 	    iPtr->result = (char *) ckalloc(memoryp, (unsigned) length+1);
-	    iPtr->freeProc = (Hax_FreeProc *) free;
+	    iPtr->freeProc = HAX_DYNAMIC;
 	} else {
 	    iPtr->result = iPtr->resultSpace;
 	    iPtr->freeProc = 0;
@@ -983,7 +983,7 @@ Hax_SetResult(
      */
 
     if (oldFreeProc != 0) {
-	if (oldFreeProc == (Hax_FreeProc *) free) {
+	if (oldFreeProc == HAX_DYNAMIC) {
 	    ckfree(memoryp, oldResult);
 	} else {
 	    (*oldFreeProc)(oldResult);

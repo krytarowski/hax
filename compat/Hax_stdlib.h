@@ -45,23 +45,23 @@
 #define malloc(x) Hax_malloc(x)
 #define qsort(a,b,c,d) Hax_qsort((a), (b), (c), (d))
 #define realloc(x, y) Hax_realloc((x), (y))
-#define strtod(x, y) Hax_strtod((x), (y))
-#define strtol(x, y, z) Hax_strtol((x), (y), (z))
-#define strtoul(x, y, z) Hax_strtoul((x), (y), (z))
-#define strtoll(x, y, z) Hax_strtol((x), (y), (z))
+#define strtod(erange, x, y) Hax_strtod((erange), (x), (y))
+#define strtol(erange, x, y, z) Hax_strtol((erange), (x), (y), (z))
+#define strtoul(ergange, x, y, z) Hax_strtoul((erange), (x), (y), (z))
+#define strtoll(ergange, x, y, z) Hax_strtoll((erange), (x), (y), (z))
 
-int	 atoi(const char *);
-void	*calloc(size_t, size_t);
-void	 free(void *);
-void	*malloc(size_t);
-void	 qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-void	*realloc(void *, size_t);
-double	 strtod(const char * restrict, char ** restrict);
-long	 strtol(const char * restrict, char ** restrict, int);
+int	 Hax_atoi(const char *);
+void	*Hax_calloc(size_t, size_t);
+void	 Hax_free(void *);
+void	*Hax_malloc(size_t);
+void	 Hax_qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+void	*Hax_realloc(void *, size_t);
+double	 Hax_strtod(int *erange, const char * restrict, char ** restrict);
+long	 Hax_strtol(int *erange, const char * restrict, char ** restrict, int);
 unsigned long
-	 strtoul(const char * restrict, char ** restrict, int);
+	 Hax_strtoul(int *erange, const char * restrict, char ** restrict, int);
 
-long long int	strtoll(const char * restrict, char ** restrict, int);
+long long int	Hax_strtoll(int *erange, const char * restrict, char ** restrict, int);
 
 #endif /* !_HAX_STDLIB_H_ */
 #endif
