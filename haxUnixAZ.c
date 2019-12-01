@@ -49,6 +49,7 @@ static CmdInfo builtInCmds[] = {
     {"gets",		Hax_GetsCmd},
     {"glob",		Hax_GlobCmd},
     {"open",		Hax_OpenCmd},
+    {"package",		Hax_PackageCmd},
     {"puts",		Hax_PutsCmd},
     {"pwd",		Hax_PwdCmd},
     {"read",		Hax_ReadCmd},
@@ -1178,6 +1179,158 @@ Hax_OpenCmd(
 /*
  *----------------------------------------------------------------------
  *
+ * Hax_PackageCmd --
+ *
+ *	This procedure is invoked to process the "package" Hax command.
+ *	See the user documentation for details on what it does.
+ *
+ * Results:
+ *	A standard Hax result.
+ *
+ * Side effects:
+ *	See the user documentation.
+ *
+ *----------------------------------------------------------------------
+ */
+
+	/* ARGSUSED */
+int
+Hax_PackageCmd(
+    ClientData clientData,		/* Unix ClientData */
+    Hax_Interp *interp,			/* Current interpreter. */
+    int argc,				/* Number of arguments. */
+    char **argv				/* Argument strings. */)
+{
+    Hax_Memoryp *memoryp;
+    UnixClientData *clientDataPtr;
+    int length;
+    char c;
+    int i;
+
+    memoryp = Hax_GetMemoryp(interp);
+
+    if (argc < 2) {
+	Hax_AppendResult(interp, "wrong # args: should be \"", argv[0],
+		" options ?arg arg ...?\"", (char *) NULL);
+	return HAX_ERROR;
+    }
+    c = argv[1][0];
+    length = strlen(argv[1]);
+    if ((c == 'r') && (strncmp(argv[1], "require", length)) == 0) {
+	OpenDSO *newDso;
+	OpenDSO *dsoPtr;
+	char *dsoPath;
+	char *name;
+	char *reqVersion;
+	char *libraryPath;
+
+	if (argc == 3) {
+	    reqVersion = (char *) "";
+	} else if (argc == 4) {
+	    reqVersion = argv[3];
+	} else {
+	    Hax_AppendResult(interp, "wrong # args: should be \"", argv[0],
+		" package require ?version?\"", (char *) NULL);
+	    return HAX_ERROR;
+	}
+	name = argv[2];
+
+	if (strlen(name) == 0) {
+	    interp->result =
+		(char *) "package name cannot be empty";
+	    return HAX_ERROR;
+	}
+
+	if (clientDataPtr->numDSOs > 0) {
+	    for (i = 0; i < clientDataPtr->numDSOs; i++) {
+		char *dsoName;
+
+		dsoPtr = clientDataPtr->dsoPtrArray[i];
+		if (dsoPtr == NULL) {
+		    continue;
+		}
+
+		dsoName = clientDataPtr->dsoPtrArray[i]->printName;
+		if (strcmp(dsoName, name) == 0) {
+		    Hax_AppendResult(interp, "package \"", name,
+			"\" already loaded", (char *) NULL);
+		    return HAX_ERROR;
+		}
+	    }
+	}
+
+	libraryPath = Hax_GetLibraryPath(interp);
+	if (libraryPath == NULL) {
+	    interp->result =
+		(char *) "there s no Hax library at this installation";
+	    return HAX_ERROR;
+	}
+
+	length = strlen(libraryPath) + strlen("/") + strlen(name) +
+		strlen(reqVersion) + strlen(".so") + 1;
+	dsoPath = ckalloc(memoryp, length);
+	sprintf(dsoPath, "%s/%s%s.so", libraryPath, name, reqVersion);
+
+	newDso = ckalloc(memoryp, sizeof(*newDso));
+
+	newDso->dsoPtr = dlopen(dsoPath, RTLD_GLOBAL);
+	ckfree(memoryp, dsoPath);
+
+	if (newDso->dsoPtr == NULL) {
+	    Hax_AppendResult(interp, "cannot find package \"", name,
+		"\" version: ",
+		(reqVersion[0] != '\0' ? reqVersion  : "default"),
+		(char *) NULL);
+
+	    ckfree(memoryp, newDso->dsoPtr);
+	    return HAX_ERROR;
+	}
+
+	length = strlen(name) + 1;
+	newDso->printName = ckalloc(memoryp, length);
+	memcpy(newDso->printName, name, length);
+
+	if (reqVersion[0] != '\0') {
+	    length = strlen(reqVersion) + 1;
+	    newDso->version = ckalloc(memoryp, length);
+	    memcpy(newDso->version, reqVersion, length);
+	} else {
+	    newDso->version = NULL;
+	}
+
+	;
+
+	return HAX_OK;
+    } else if ((c == 'n') && (strncmp(argv[1], "names", length)) == 0) {
+	if (argc != 2) {
+	    Hax_AppendResult(interp, "wrong # args: should be \"", argv[0],
+		" package names\"", (char *) NULL);
+	    return HAX_ERROR;
+	}
+
+	if (clientDataPtr->numDSOs > 0) {
+	    for (i = 0; i < clientDataPtr->numDSOs; i++) {
+		OpenDSO *dsoPtr;
+		char *name;
+
+		dsoPtr = clientDataPtr->dsoPtrArray[i];
+		if (dsoPtr == NULL) {
+		    continue;
+		}
+
+		name = clientDataPtr->dsoPtrArray[i]->printName;
+		Hax_AppendElement(interp, name, 0);
+	    }
+	}
+	return HAX_OK;
+    }
+
+    return HAX_ERROR;
+}
+
+/*
+ *----------------------------------------------------------------------
+ *
  * Hax_PwdCmd --
  *
  *	This procedure is invoked to process the "pwd" Hax command.
@@ -1853,6 +2006,25 @@ Hax_UnixCoreDelete(
 	ckfree(memoryp, clientDataPtr->waitTable);
     }
 
+    if (clientDataPtr->numDSOs > 0) {
+	for (i = 0; i < clientDataPtr->numDSOs; i++) {
+	    OpenDSO *dsoPtr;
+
+	    dsoPtr = clientDataPtr->dsoPtrArray[i];
+	    if (dsoPtr == NULL) {
+		continue;
+	    }
+
+	    ckfree(memoryp, clientDataPtr->dsoPtrArray[i]->printName);
+	    ckfree(memoryp, clientDataPtr->dsoPtrArray[i]->version);
+	    dlclose(clientDataPtr->dsoPtrArray[i]->dsoPtr);
+	    ckfree(memoryp, (char *) clientDataPtr->dsoPtrArray[i]->dsoPtr);
+
+	    ckfree(memoryp, (char *) clientDataPtr->dsoPtrArray[i]);
+	}
+	ckfree(memoryp, (char *) clientDataPtr->filePtrArray);
+    }
+
     ckfree(memoryp, (char *) clientDataPtr);
 }
 
@@ -1888,6 +2060,8 @@ Hax_InitUnixCore(
     clientDataPtr->waitTable = NULL;
     clientDataPtr->waitTableSize = 0;
     clientDataPtr->waitTableUsed = 0;
+    clientDataPtr->numDSOs = 0;
+    clientDataPtr->dsoPtrArray = NULL;
 
     for (cmdInfoPtr = builtInCmds; cmdInfoPtr->name != NULL;
 	 cmdInfoPtr++) {

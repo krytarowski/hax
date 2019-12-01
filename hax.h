@@ -21,9 +21,14 @@
 #ifndef _HAX
 #define _HAX
 
+/* Historic Tcl #defines -- probably will remain untouched for all time. */
 #define HAX_VERSION "6.7"
 #define HAX_MAJOR_VERSION 6
 #define HAX_MINOR_VERSION 7
+
+/* Patch level that is the only value that increments. */
+#define HAX_PATCHLEVEL "6.7.1"
+#define HAX_PATCH_VERSION 1
 
 /*
  * Definitions that allow this header to be used with C++.
@@ -239,6 +244,7 @@ HAX_EXTERN Hax_Memoryp *Hax_CreateMemoryManagement (
 			    int alloc_tracing, int init_malloced_bodies,
 			    int validate_memory);
 HAX_EXTERN Hax_Memoryp *Hax_GetMemoryp (Hax_Interp *interp);
+HAX_EXTERN char	*	Hax_GetLibraryPath (Hax_Interp *interp);
 HAX_EXTERN void		Hax_SetLibraryPath (Hax_Interp *interp, char *path);
 HAX_EXTERN Hax_Interp *	Hax_CreateInterp (Hax_Memoryp *memoryp);
 HAX_EXTERN int		Hax_CreatePipeline (Hax_Interp *interp,
@@ -497,5 +503,38 @@ HAX_EXTERN void			Hax_EnvTraceProc(Hax_Interp *interp,
 				    Hax_EnvWriteProc *writeProc,
 				    Hax_EnvUnsetProc *unsetProc,
 				    Hax_EnvDestroyProc *destroyProc);
+
+/*
+ * Dynamis Shared Object support (Hax Loadable Package)
+ */
+typedef ClientData (Hax_PackageInit)
+    (Hax_Interp *interp, ClientData unixClientData);
+typedef void (Hax_PackageFree) (Hax_Interp *interp, ClientData clientData);
+
+typedef struct Hax_Package {
+    int haxMajor;
+    int haxMinor;
+    int haxPatch;
+    char *name;
+    char *version;
+    Hax_PackageInit *packageInit;
+    Hax_PackageFree *packageFree;
+} Hax_Package;
+
+#ifdef __GNUC__
+#define SYMBOLEXPORT __attribute__ ((visibility("default")))
+#else
+#define SYMBOLEXPORT
+#endif
+
+#define HAX_PACKAGE_SETUP(name,version,packageinit,packagefree)	\
+HAX_EXTERN Hax_Package Hax_##name##_ctx;			\
+Hax_Package Hax_##name##_ctx = {				\
+    HAX_MAJOR_VERSION, HAX_MINOR_VERSION, HAX_PATCH_VERSION,	\
+    #name, #version,						\
+    packageinit, packagefree					\
+};
+	
+
 
 #endif /* _HAX */
