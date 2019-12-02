@@ -504,4 +504,36 @@ HAX_EXTERN void			Hax_EnvTraceProc(Hax_Interp *interp,
 				    Hax_EnvUnsetProc *unsetProc,
 				    Hax_EnvDestroyProc *destroyProc);
 
+/*
+ * Dynamis Shared Object support (Hax Loadable Package)
+ */
+typedef ClientData (Hax_PackageInit)
+    (Hax_Interp *interp, ClientData unixClientData);
+typedef void (Hax_PackageFree) (Hax_Interp *interp, ClientData clientData);
+
+typedef struct Hax_Package {
+    int haxMajor;
+    int haxMinor;
+    int haxPatch;
+    char *name;
+    char *version;
+    char *dependencies;
+    Hax_PackageInit *packageInit;
+    Hax_PackageFree *packageFree;
+} Hax_Package;
+
+#ifdef __GNUC__
+#define SYMBOLEXPORT __attribute__ ((visibility("default")))
+#else
+#define SYMBOLEXPORT
+#endif
+
+#define HAX_PACKAGE_SETUP(nam,ver,deps,pkginit,pkgfree)		\
+HAX_EXTERN SYMBOLEXPORT Hax_Package Hax_##nam##_ctx;		\
+Hax_Package Hax_##nam##_ctx = {					\
+    HAX_MAJOR_VERSION, HAX_MINOR_VERSION, HAX_PATCH_VERSION,	\
+    #nam, #ver, deps,						\
+    pkginit, pkgfree						\
+}
+
 #endif /* _HAX */

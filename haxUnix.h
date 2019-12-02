@@ -43,6 +43,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <dlfcn.h>
 
 /*
  * Make sure that MAXPATHLEN is defined.
@@ -118,6 +119,17 @@ typedef struct {
 
 #define WAIT_TABLE_GROW_BY 4
 
+/*
+ * The data structure below defines an open Dynamic Shared Object
+ * as returned by the "package require" command.
+ */
+
+typedef struct OpenDSO {
+    char *printName;		/* Print Name of DSO */
+    char *version;		/* Package's version */
+    void *dsoPtr;		/* Dynamic Link handle */
+} OpenDSO;
+
 typedef struct UnixClientData {
     /*
      * Information related to files.
@@ -179,6 +191,17 @@ typedef struct UnixClientData {
 				 * are actually in use right now.  Active
 				 * entries are always at the beginning
 				 * of the table. */
+    /*
+     * haxPackage.c
+     */
+    int numDSOs;		/* Number of entries in dsoPtrArray
+				 * below. 0 means no Hax Package has
+				 * been required yet. */
+    OpenDSO **dsoPtrArray;	/* Pointer to malloc-ed array of pointers
+				 * to information about Dynamic Shared
+				 * Objects with Hax Packages.  If dsoPtrArray
+				 * is NULL it means no Hax Packages have been
+				 * loaded. */
 } UnixClientData;
 
 /*
@@ -221,6 +244,8 @@ extern int	Hax_GetsCmd (ClientData clientData,
 extern int	Hax_GlobCmd (ClientData clientData,
 		    Hax_Interp *interp, int argc, char **argv);
 extern int	Hax_OpenCmd (ClientData clientData,
+		    Hax_Interp *interp, int argc, char **argv);
+extern int	Hax_PackageCmd (ClientData clientData,
 		    Hax_Interp *interp, int argc, char **argv);
 extern int	Hax_PutsCmd (ClientData clientData,
 		    Hax_Interp *interp, int argc, char **argv);
