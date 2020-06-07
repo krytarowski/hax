@@ -61,7 +61,7 @@
 #define TCL_SYS_ERRLIST 1
 #define TCL_SYS_TIME_H 1
 #define TCL_SYS_WAIT_H 1
-#define TCL_UNION_WAIT 1
+#define TCL_UNION_WAIT 0
 #define TCL_PID_T 1
 #define TCL_UID_T 1
 
@@ -83,16 +83,7 @@
 #if TCL_SYS_WAIT_H
 #   include <sys/wait.h>
 #endif
-
-/*
- * Not all systems declare the errno variable in errno.h. so this
- * file does it explicitly.  The list of system error messages also
- * isn't generally declared in a header file anywhere.
- */
-
-extern int errno;
-extern int sys_nerr;
-extern char *sys_errlist[];
+#include <unistd.h>
 
 /*
  * The type of the status returned by wait varies from UNIX system
@@ -283,35 +274,5 @@ extern char *sys_errlist[];
 #define environ _environ
 #endif
 extern char **environ;
-
-/*
- * Library procedures used by Tcl but not declared in a header file:
- */
-
-#ifndef _CRAY
-extern int	access	   _ANSI_ARGS_((CONST char *path, int mode));
-extern int	chdir	   _ANSI_ARGS_((CONST char *path));
-extern int	close	   _ANSI_ARGS_((int fd));
-extern int	dup2	   _ANSI_ARGS_((int src, int dst));
-extern void	endpwent   _ANSI_ARGS_((void));
-extern int	execvp	   _ANSI_ARGS_((CONST char *name, char **argv));
-extern void	_exit 	   _ANSI_ARGS_((int status));
-extern pid_t	fork	   _ANSI_ARGS_((void));
-extern uid_t	geteuid	   _ANSI_ARGS_((void));
-extern pid_t	getpid	   _ANSI_ARGS_((void));
-extern char *	getcwd 	   _ANSI_ARGS_((char *buffer, int size));
-extern char *	getwd  	   _ANSI_ARGS_((char *buffer));
-extern int	kill	   _ANSI_ARGS_((pid_t pid, int sig));
-extern long	lseek	   _ANSI_ARGS_((int fd, int offset, int whence));
-extern char *	mktemp	   _ANSI_ARGS_((char *template));
-#if !(defined(sparc) || defined(_IBMR2))
-extern int	open	   _ANSI_ARGS_((CONST char *path, int flags, ...));
-#endif
-extern int	pipe	   _ANSI_ARGS_((int *fdPtr));
-extern int	read	   _ANSI_ARGS_((int fd, char *buf, int numBytes));
-extern int	readlink   _ANSI_ARGS_((CONST char *path, char *buf, int size));
-extern int	unlink 	   _ANSI_ARGS_((CONST char *path));
-extern int	write	   _ANSI_ARGS_((int fd, char *buf, int numBytes));
-#endif /* _CRAY */
 
 #endif /* _TCLUNIX */

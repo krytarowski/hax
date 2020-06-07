@@ -29,6 +29,7 @@
  */
 
 #include <stdio.h>
+#include <stdarg.h>
 
 #ifndef _TCL
 #include "tcl.h"
@@ -43,7 +44,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
-#include <varargs.h>
 
 /*
  * At present (12/91) not all stdlib.h implementations declare strtod.
