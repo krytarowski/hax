@@ -1,0 +1,10 @@
+*.o
+*.la
+*.lo
+*.so
+*.a
+.libs
+*~
+*.core
+haxsh
+rhaxsh
